@@ -1,0 +1,121 @@
+[
+  {
+    "type": "npc",
+    "id": "npc_ti_jk_default",
+    "//": "デフォルトJK",
+    "class": "NC_TI_JK_DEFAULT",
+    "gender": "male",
+    "attitude": 1,
+    "mission": 0,
+    "mission_offered": "JK_MISSION_FIND_LABO_1",
+    "chat": "JK_TALK_START",
+    "faction": "no_faction"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_TI_JK_DEFAULT",
+    "//": "デフォルトJK。ステータス高め",
+    "name": { "str": "jk default" },
+    "job_description": "はい！",
+    "common": false,
+    "bonus_str": { "sum": [ {"one_in": 2}, {"one_in": 2} ] },
+    "bonus_dex": { "sum": [ {"one_in": 2}, {"one_in": 2} ] },
+    "bonus_int": { "sum": [ {"one_in": 2}, {"one_in": 2} ] },
+    "bonus_per": { "sum": [ {"one_in": 2}, {"one_in": 2} ] },
+    "weapon_override": "EMPTY_GROUP",
+    "worn_override": "NC_TI_JK_worn",
+    "carry_override": "NC_TI_JK_carried",
+    "skills": [
+      { "skill": "cooking", "bonus": { "rng": [ 1, 3 ] } },
+      { "skill": "speech", "bonus": { "rng": [ 1, 3 ] } },
+      { "skill": "driving", "bonus": { "rng": [ 1, 2 ] } },
+      { "skill": "fabrication", "bonus": { "one_in": 2 } },
+      { "skill": "tailor", "bonus": { "one_in": 2 } },
+      { "skill": "swimming", "bonus": { "one_in": 2 } },
+      { "skill": "firstaid", "bonus": { "one_in": 2 } }
+    ],
+    "traits": [ { "group": "NPC_starting_traits_jk_default" }, { "group": "jk_Appearance_demographics" } ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_START",
+    "dynamic_line": "センパイ、これからどうしましょう……",
+    "responses": [
+      {
+        "text": "(考えを話す)",
+        "topic": "JK_TALK_SHELTER_PLAN"
+      },
+      { "text": "(旅に誘う)", "topic": "JK_TALK_SUGGEST_FOLLOW", "condition": { "not": "npc_following" } },
+      {
+        "text": "(あとで話す)",
+        "topic": "TALK_DONE"
+      }
+    ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_SUGGEST_FOLLOW",
+    "dynamic_line": [
+     "はい。センパイについていきます！"
+    ],
+    "responses": [
+      {
+        "topic": "TALK_DONE",
+        "text": "(一緒に行く)",
+        "effect": [ "follow" , {"npc_first_topic": "JK_TALK_FRIEND"} ] ,
+        "opinion": { "trust": 100 , "value": 100 , "fear": -10, "anger": -10 }
+      }
+    ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_SHELTER_PLAN",
+    "dynamic_line": [
+     "なるほど、物資と生存者を探さないとですね。",
+     "そうですね、ここの防備を固めたほうがいいかもしれません。",
+     "乗り物、ですか。確かにこれ以上歩いてどこかに行くのは難しそうです。",
+     "はい。食べ物を探すのには農場がいいと思います。",
+     "はい。街で役に立つものを探した方がいいかもしれません。でも、きっと危険ですよね",
+     "シェルターのコンピュータで避難センターの場所を調べられるんでしたね",
+     "わかりました。シェルターの中に役に立つものがあるか調べてみます"
+    ],
+    "responses": [
+      {
+        "text": "(頷く)",
+        "topic": "TALK_NONE"
+      }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_TI_JK_worn",
+    "subtype": "collection",
+    "entries": [ {"item": "bra"},
+                 {"item": "panties"},
+                 {"item": "skirt"},
+                 {"item": "tshirt"},
+                 {"item": "socks"},
+                 {"item": "sneakers"},
+                 {"item": "ZSG"},
+                 {"item": "backpack"},
+                 {"item": "wristwatch"}]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_TI_JK_carried",
+    "subtype": "collection",
+    "entries": [ {"item": "textbook_speech"},
+                 {"item": "story_book"},
+                 {"item": "novel_coa"},
+                 {"item": "id_science"}
+               ]
+  },
+  {
+    "type": "snippet",
+    "category": "<combat_noise_warning>",
+    "//": "NPC complaint that they heard combat noises that they can't see.",
+    "text": [
+      "テストcombat_noise_warningテスト"
+    ]
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "ti_jk_companion",
+    "name": "追加 - JKコンパニオン",
+    "authors": [ "ti" ],
+    "maintainers": [ "ti" ],
+    "description": "Starting with highschool girl!",
+    "category": "misc_additions",
+    "dependencies": [ "dda" ]
+  }
+]

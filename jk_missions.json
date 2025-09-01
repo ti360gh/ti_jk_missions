@@ -1,0 +1,263 @@
+[
+ {
+  "id": "JK_MISSION_FIND_LABO_1",
+  "type": "mission_definition",
+  "name": "科学研究所を目指そう",
+  "difficulty": 2,
+  "value": 0,
+  "goal": "MGOAL_GO_TO_TYPE",
+  "description": "後輩の言っていた研究所を見つける",
+  "destination": "lab_stairs",
+  "start": {
+    "assign_mission_target": { "om_terrain": "lab_stairs", "reveal_radius": 2, "om_terrain_match_type": "PREFIX", "search_range": 280, "z": 0, "random": true}
+  },
+  "origins": [ "ORIGIN_SECONDARY" ],
+  "followup": "JK_MISSION_FIND_LABO_2",
+  "has_generic_rewards": false,
+  "dialogue": {
+    "describe": "describe",
+    "offer": "センパイ。実はわたし、安全かもしれない場所を知っているんです。\nあの日の朝にママがこのカードをくれました。ママはどうしてもラボに行かないといけないけど、もしこのあたりも危険になったらこの研究所に行きなさいって。\nそこにママはいないけど、このカードがあれば中に入れてくれるからって。\nママは研究所のセキュリティは信用できるって言っていました。だから、きっと生存者もいると思うんです。",
+    "accepted": "ありがとうございます！",
+    "rejected": "そうですね…もっと違うところを目指した方がいいかもしれません",
+    "advice": "IDカードがあれば研究所に入れるはずです。場所はセンパイの地図にメモしました",
+    "inquire": "研究所に近づいているんでしょうか…",
+    "success": "誰も、居ませんね…",
+    "success_lie": "",
+    "failure": "そうですね…もっと違うところを目指した方がいいかもしれません"
+   }
+ },
+ {
+  "id": "JK_MISSION_FIND_LABO_2",
+  "type": "mission_definition",
+  "name": "HUB01を目指そう",
+  "followup": "JK_MISSION_FIND_LABO_3",
+  "difficulty": 2,
+  "value": 0,
+  "goal": "MGOAL_CONDITION",
+  "goal_condition": { "u_has_var": "u_talk_about_jk_mom1", "type": "dialogue", "context": "jk", "value": "yes" },
+  "description": "後輩のママの職場を探す",
+  "has_generic_rewards": false,
+  "start": {
+    "assign_mission_target": {  "om_terrain": "robofachq_surface_entrance", "om_special": "hub_01", "reveal_radius": 2, "search_range": 560, "z": 0 }
+  },
+  "origins": [ "ORIGIN_SECONDARY" ],
+
+  "dialogue": {
+    "describe": "describe",
+    "offer": "センパイ、ママの働いていたラボに行ってみませんか？　ママはあのラボはホワイトハウスより安全だって言っていましたから。\nいいえ、ママが見つかったら嬉しいけど、どこもこんな風になっているから、ちゃんとたどり着けたかどうか…\nでも、もしちゃんとたどり着けていたら、あそこは部外者は家族でも入れないくらいですし、もしかしたら…",
+    "accepted": "ありがとうございます！",
+    "rejected": "そうですね…もっと違うところを目指した方がいいかもしれません",
+    "advice": "ママのラボはハブ01ってところです。",
+    "inquire": "ハブに近づいているんでしょうか…",
+    "success": "そうですか…急にそんなこと言っても信用してもらえるはずありませんよね…\n",
+    "success_lie": "",
+    "failure": "そうですね…もっと違うところを目指した方がいいかもしれません"
+   }
+ },
+ {
+  "id": "JK_MISSION_FIND_LABO_3",
+  "type": "mission_definition",
+  "name": "ハブの信用を得るには",
+  "followup": "JK_MISSION_FIND_LABO_4",
+  "difficulty": 2,
+  "value": 0,
+  "goal": "MGOAL_CONDITION",
+  "goal_condition": { "u_has_var": "u_talk_about_jk_mom2", "type": "dialogue", "context": "jk", "value": "yes" },
+  "description": "ハブの信用を得る",
+  "has_generic_rewards": false,
+  "origins": [ "ORIGIN_SECONDARY" ],
+
+  "dialogue": {
+    "describe": "describe",
+    "offer": "センパイ、あの人達に信用してもらうにはどうしたらいいでしょうか。\nママはハブ01で仕事をしていたんです。きっと何か知っているはずなのに…",
+    "accepted": "考えてくれるんですね。ありがとうございます！",
+    "rejected": "そうですね…もっと違うところを目指した方がいいかもしれません",
+    "advice": "機会があればアリーヤ博士について聞いてみてもらえませんか？\nわたし達が役に立つことを証明すれば、もしかしたら信用してもらえるかもしれません。",
+    "inquire": "ハブのお仕事をするんですね。わたしも頑張ります！",
+    "success": "そうですか…。でも、ちょっとは信用してくれているみたいですね。\nそんなひとはいないって言うこともできたのに。\n",
+    "success_lie": "",
+    "failure": "そうですね…もっと違うところを目指した方がいいかもしれません"
+   }
+ },
+ {
+  "id": "JK_MISSION_FIND_LABO_4",
+  "type": "mission_definition",
+  "name": "ハブの信用を得るには2",
+  "followup": "JK_MISSION_FIND_LABO_5",
+  "difficulty": 2,
+  "value": 0,
+  "goal": "MGOAL_CONDITION",
+  "goal_condition": { "u_has_var": "u_talk_about_jk_mom3", "type": "dialogue", "context": "jk", "value": "yes" },
+  "description": "ハブの信用を得る",
+  "has_generic_rewards": false,
+  "origins": [ "ORIGIN_SECONDARY" ],
+  "dialogue": {
+    "describe": "describe",
+    "offer": "センパイの言ったとおり、あのひと達はギブアンドテイクの取引には応じるみたいです。\nわたし達がもっと役に立つことを証明したら、何か教えてくれるかもしれません。",
+    "accepted": "考えてくれるんですね。ありがとうございます！",
+    "rejected": "そうですね…もっと違うところを目指した方がいいかもしれません",
+    "advice": "せめて、ママが無事なのかだけでも知りたいんです…",
+    "inquire": "ハブのお仕事をするんですね。わたしも頑張ります！",
+    "success": "消えた…って、もういないってことですよね。大丈夫です…覚悟はしていましたから。\nでも、もうわたしにはセンパイしかいなくなっちゃいましたね…\n",
+    "success_lie": "",
+    "failure": "そうですね…もっと違うところを目指した方がいいかもしれません"
+   }
+ },
+ {
+  "id": "JK_MISSION_FIND_LABO_5",
+  "type": "mission_definition",
+  "name": "アリーヤ博士の行方を追う",
+  "difficulty": 2,
+  "value": 0,
+  "goal": "MGOAL_GO_TO_TYPE",
+  "destination": "central_lab_entrance",
+  "start": {
+    "assign_mission_target": { "om_terrain": "central_lab_entrance", "om_special": "Central Lab", "reveal_radius": 2, "om_terrain_match_type": "PREFIX", "search_range": 1000, "z": 0}
+  },
+  "description": "アリーヤ博士の行方を追う",
+  "has_generic_rewards": false,
+  "origins": [ "ORIGIN_SECONDARY" ],
+  "dialogue": {
+    "describe": "describe",
+    "offer": "センパイ、ママ達が消えた場所は地図ではこの場所みたいです。",
+    "accepted": "ありがとうございます。センパイ…",
+    "rejected": "そうですね…もっと違うところを目指した方がいいかもしれません",
+    "advice": "何もないかもしれないけど、まずは行ってみませんか？",
+    "inquire": "たとえ何もなくても、わたしは大丈夫です…",
+    "success": "センパイ、ほんとうにありがとうございました。わたしはもう、終わったことを考えるのはやめにします。\nこれからも、よろしくお願いしますね",
+    "success_lie": "",
+    "failure": "そうですね…もっと違うところを目指した方がいいかもしれません"
+   }
+ },
+ {
+   "id": "TALK_ROBOFAC_INTERCOM",
+   "type": "talk_topic",
+   "responses": [
+     {
+       "condition": { 
+         "and" : [
+            {"u_has_mission": "JK_MISSION_FIND_LABO_2"},
+            { "not": {"u_has_var": "u_talk_about_jk_mom1", "type": "dialogue", "context": "jk", "value": "yes"} }
+         ]
+       },
+       "text": "(後輩のママについて尋ねる)",
+       "topic": "JK_TALK_HUB_1"
+     },
+     {
+       "condition": { 
+         "and" : [
+            {"u_has_var": "completed_robofac_intercom_1", "type": "dialogue", "context": "intercom", "value": "yes"},
+            {"not": {"u_has_var": "u_talk_about_jk_mom2", "type": "dialogue", "context": "jk", "value": "yes"} }
+         ]
+       },
+       "text": "(後輩のママの名前を伝える)",
+       "topic": "JK_TALK_HUB_2"
+     },
+     {
+       "condition": { 
+         "and" : [
+            { "and": [
+              { "u_has_var": "completed_robofac_intercom_2", "type": "dialogue", "context": "intercom", "value": "yes" },
+              { "u_has_var": "completed_robofac_intercom_robot_sm_1", "type": "dialogue", "context": "intercom", "value": "yes" }
+             ]
+            },
+            {"not": {"u_has_var": "u_talk_about_jk_mom3", "type": "dialogue", "context": "jk", "value": "yes"} }
+         ]
+       },
+       "text": "(もう一度後輩のママについて尋ねる)",
+       "topic": "JK_TALK_HUB_3"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_1",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "またその手合いか。失せろ。"
+  ],
+  "speaker_effect": {
+    "effect": { "u_add_var": "u_talk_about_jk_mom1", "type": "dialogue", "context": "jk", "value": "yes" }
+   },
+   "responses": [
+     {
+       "text": "(文句を言う)",
+       "topic": "JK_TALK_HUB_DONE"
+     },
+     {
+       "text": "(説得する)",
+       "topic": "JK_TALK_HUB_DONE"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_2",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "通信装置: アリーヤ博士？　…またその話か。我々の情報を外部に伝えることはできない"
+  ],
+  "speaker_effect": {
+    "effect": { "u_add_var": "u_talk_about_jk_mom2", "type": "dialogue", "context": "jk", "value": "yes" }
+   },
+   "responses": [
+     {
+       "text": "(...)",
+       "topic": "JK_TALK_HUB_DONE1"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_3",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "…君はずいぶんと腕が立つな。\nアリーヤ博士はここには居ない。到着してすぐにヘリでどこかに向かったきりだ。\n私が聞かされているのは、同行者と護衛ともども『消えた』ということだ。全員行方不明、死亡したとして捜索隊は派遣されないことが決まった。そんなことがあるか？\nその気があるなら手掛かりを探してみてくれないか。何か見つけたら持ち帰ってきて欲しい。\n念のために言っておくが、これは個人的な頼みだ。我々として報酬は出せない"
+  ],
+  "speaker_effect": {
+    "effect": { "u_add_var": "u_talk_about_jk_mom3", "type": "dialogue", "context": "jk", "value": "yes" }
+   },
+   "responses": [
+     {
+       "text": "(礼を言う)",
+       "topic": "JK_TALK_HUB_DONE2"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_DONE",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "失せろ。 -ブツッ-"
+  ],
+   "responses": [
+     {
+       "text": "(...)",
+       "topic": "TALK_DONE"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_DONE1",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "*ザザッ*"
+  ],
+   "responses": [
+     {
+       "text": "(...)",
+       "topic": "TALK_DONE"
+     }
+   ]
+ },
+ {
+  "id": "JK_TALK_HUB_DONE2",
+  "type": "talk_topic",
+  "dynamic_line": [
+    "娘さんによろしく"
+  ],
+   "responses": [
+     {
+       "text": "(...)",
+       "topic": "TALK_DONE"
+     }
+   ]
+ }
+]
