@@ -1,0 +1,49 @@
+[
+  {
+    "//": "初期特性",
+    "type": "trait_group",
+    "id": "NPC_starting_traits_jk_default",
+    "subtype": "collection",
+    "traits": [
+      { "trait": "PROJUNK", "prob": 10 },
+      { "trait": "PRETTY", "prob": 100 },
+      { "trait": "FLEET", "prob": 10 },
+      { "trait": "SOCIAL1", "prob": 100 },
+      { "trait": "OPTIMISTIC", "prob": 100 },
+      { "group": "trait_group_CHILL", "prob": 10 },
+      { "group": "trait_group_WARN", "prob": 10 },
+      { "trait": "DEFT", "prob": 10 },
+      { "trait": "ROBUST", "prob": 10 },
+      { "trait": "FASTHEALER", "prob": 10 },
+      { "trait": "EASYSLEEPER", "prob": 10 },
+      { "trait": "FAST_REFLEXES", "prob": 10 },
+      { "trait": "QUICK", "prob": 10 },
+      { "trait": "LIGHTEATER", "prob": 10 },
+      { "trait": "PACKMULE", "prob": 10 },
+      { "trait": "FASTLEARNER", "prob": 10 },
+      { "trait": "FASTREADER", "prob": 10 },
+      { "trait": "WEAKSCENT", "prob": 10 },
+      { "trait": "PAINRESIST", "prob": 10 },
+      { "trait": "EAGLEEYED", "prob": 10 },
+      { "trait": "POISRESIST", "prob": 10 },
+      { "trait": "LIGHTSTEP", "prob": 10 },
+      { "trait": "DISRESISTANT", "prob": 10 },
+      { "trait": "GOODCARDIO", "prob": 10 },
+      { "trait": "NIGHTVISION", "prob": 10 },
+      { "trait": "GOODHEARING", "prob": 10 },
+      { "trait": "INFRESIST", "prob": 10 }
+    ]
+  },
+  {
+    "type": "trait_group",
+    "id": "trait_group_CHILL",
+    "subtype": "distribution",
+    "traits": [ { "trait": "RESISTCHILL" }, { "trait": "VULNERABLECHILL" } ]
+  },
+  {
+    "type": "trait_group",
+    "id": "trait_group_WARM",
+    "subtype": "distribution",
+    "traits": [ { "trait": "RESISTWARM" }, { "trait": "VULNERABLEWARM" } ]
+  }
+]

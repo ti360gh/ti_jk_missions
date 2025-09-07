@@ -1,0 +1,30 @@
+[
+  {
+    "type": "item_group",
+    "id": "NC_TI_JK_CLASS_worn",
+    "subtype": "collection",
+    "entries": [
+      { "item": "bra" },
+      { "item": "boy_shorts" },
+      { "item": "socks" },
+      { "item": "sneakers" },
+      { "item": "ZSG" },
+      { "item": "backpack" },
+      { "item": "wristwatch" },
+      { "item": "skirt" },
+      { "item": "tshirt" }
+    ]
+  },
+  {
+    "type": "item_group",
+    "id": "NC_TI_JK_CLASS_carried",
+    "subtype": "collection",
+    "entries": [
+      { "item": "textbook_speech" },
+      { "item": "novel_coa" },
+      { "item": "id_science" },
+      { "group": "charged_smart_phone", "contents-item": "mag_news" },
+      { "group": "starter_wallet_full" }
+    ]
+  }
+]

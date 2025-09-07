@@ -1,0 +1,80 @@
+[
+  {
+    "type": "npc",
+    "id": "npc_ti_jk_uniq",
+    "//": "デフォルトJK",
+    "class": "NC_TI_JK_CLASS",
+    "gender": "female",
+    "name_suffix": "後輩",
+    "age": 16,
+    "height": 158,
+    "attitude": 3,
+    "mission": 0,
+    "chat": "JK_TALK_START",
+    "talk_friend": "JK_TALK_FRIEND",
+    "faction": "no_faction"
+  },
+  {
+    "type": "npc_class",
+    "id": "NC_TI_JK_CLASS",
+    "//": "デフォルトJK",
+    "name": { "str": "jk default" },
+    "job_description": "どうしました、センパイ？",
+    "common": false,
+    "bonus_str": { "sum": [ { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 } ] },
+    "bonus_dex": { "sum": [ { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 } ] },
+    "bonus_int": { "sum": [ { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 } ] },
+    "bonus_per": { "sum": [ { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 }, { "one_in": 2 } ] },
+    "weapon_override": "EMPTY_GROUP",
+    "worn_override": "NC_TI_JK_CLASS_worn",
+    "carry_override": "NC_TI_JK_CLASS_carried",
+    "skills": [
+      { "skill": "chemistry", "bonus": 2 },
+      { "skill": "computer", "bonus": 2 },
+      { "skill": "driving", "bonus": 2 },
+      { "skill": "cooking", "bonus": 1 },
+      { "skill": "speech", "bonus": 1 },
+      { "skill": "fabrication", "bonus": 1 },
+      { "skill": "firstaid", "bonus": 1 },
+      { "skill": "swimming", "bonus": 2 }
+    ],
+    "traits": [ { "group": "NPC_starting_traits_jk_default" }, { "group": "Appearance_jk" } ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_START",
+    "dynamic_line": "大変でしたね、センパイ。これからどうしましょうか",
+    "responses": [
+      { "text": "(考えを話す)", "topic": "JK_TALK_SHELTER_PLAN" },
+      { "text": "(一緒に行こう)", "topic": "JK_TALK_SUGGEST_FOLLOW" },
+      { "text": "(あとで話す)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_SUGGEST_FOLLOW",
+    "dynamic_line": [ "はい。センパイについていきます！" ],
+    "responses": [
+      {
+        "topic": "TALK_DONE",
+        "text": "(一緒に行く)",
+        "effect": { "npc_first_topic": "JK_TALK_FRIEND" },
+        "opinion": { "trust": 100, "value": 100, "fear": -10, "anger": -10 }
+      }
+    ]
+  },
+  {
+    "type": "talk_topic",
+    "id": "JK_TALK_SHELTER_PLAN",
+    "dynamic_line": [
+      "そうですね、物資と生存者を探さなきゃ",
+      "ここの防備を固めている間に、FEMAのひとが来てくれるんじゃないですか？",
+      "クルマの運転ならやったことあります！ クルマはありませんけども",
+      "農場で食べ物を見つけたら私が料理してあげますよ！",
+      "街に行くなら準備しないとですね。だってほら、あんなだったし……",
+      "シェルターのコンピュータで避難センターの場所を調べられるんでしたね",
+      "わかりました。手分けしてシェルターの中に役に立つものがあるか調べてみましょう"
+    ],
+    "responses": [ { "text": "(頷く)", "topic": "TALK_NONE" } ]
+  }
+]

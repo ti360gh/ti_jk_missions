@@ -1,0 +1,20 @@
+[
+  {
+    "type": "effect_on_condition",
+    "id": "EOC_SPAWN_JK_FOLLOWER_ON_START",
+    "eoc_type": "EVENT",
+    "required_event": "avatar_enters_omt",
+    "condition": { "not": { "compare_string": [ { "global_val": "ti_jk_follower_spawned" }, "done" ] } },
+    "effect": [
+      {
+        "u_spawn_npc": "npc_ti_jk_uniq",
+        "unique_id": "NC_TI_JK_ID",
+        "real_count": 1,
+        "min_radius": 1,
+        "max_radius": 1,
+        "indoor_only": false
+      },
+      { "set_string_var": "done", "target_var": { "global_val": "ti_jk_follower_spawned" } }
+    ]
+  }
+]
