@@ -5,7 +5,7 @@
     "name": "追加 - JKコンパニオン",
     "authors": [ "ti" ],
     "maintainers": [ "ti" ],
-    "description": "後輩と一緒にスタートします。なんの後輩であったとしても、彼女は高校生です",
+    "description": "あなたにとって何らかの後輩に当たる人物と一緒にスタートします。どのような関係であれ、彼女は高校生です",
     "category": "misc_additions",
     "dependencies": [ "dda" ]
   }

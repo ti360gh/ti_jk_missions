@@ -1,0 +1,63 @@
+[
+  {
+    "id": "JK_TALK_FRIEND_CONVERSATION_1",
+    "type": "talk_topic",
+    "dynamic_line": "センパイはどうしてあんなところに居たんですか？　教えてくださいよ～",
+    "responses": [ { "text": "(また今度)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": "JK_TALK_FRIEND_CONVERSATION",
+    "type": "talk_topic",
+    "dynamic_line": "なんです？　改まって",
+    "responses": [ { "text": "(自分に合う前はどうしていた？)", "topic": "JK_TALK_BACKGROUND" } ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND",
+    "type": "talk_topic",
+    "dynamic_line": "パニクってました。いや、本当に。学校にいたらなんかサイレンが鳴って、なりましたよね？　それで教室に避難させられて、しばらくしたら警察か州兵か、なんか武装した人たちが来て、順番にバスに乗せて避難させるからって言われたんです。\n誰かがゾンビパニックだって叫んだけど、誰も笑いませんでした。センパイも動画、見ましたよね。あのプロビデンス暴動の切り抜きの、顔の崩れた女の人が歩いているやつ。",
+    "responses": [ { "text": "(見た)", "topic": "JK_TALK_BACKGROUND_2" }, { "text": "(話を打ち切る)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND_2",
+    "type": "talk_topic",
+    "dynamic_line": "SNSでも流れてたし、見せ回ってるひとも居ましたよね。それで兵士のひとに本当は何が起きているのか聞いてみたんですけど、みんな何も答えてくれなくて、たぶん誰も何も何が起きてるのかわかってなかったみたいでした。それで、じゃあこのままどこかに避難して大丈夫なのかなって思ったんです。",
+    "responses": [
+      { "text": "(続きを聞く)", "topic": "JK_TALK_BACKGROUND_3" },
+      { "text": "(話を打ち切る)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND_3",
+    "type": "talk_topic",
+    "dynamic_line": "だからってどうしようもないし、本当は友達と一緒に避難しようとしていたんです。うちに帰ってもママは居ないし……。でも、私たちを誘導しようとしていた兵士の顔を見たら、ちょうどセンパイと同じくらいの歳で、それでセンパイのことを考えてたら、あっ今抜け出せそうだなってなって、つい",
+    "responses": [
+      { "text": "(どうしたのか聞く)", "topic": "JK_TALK_BACKGROUND_4" },
+      { "text": "(話を打ち切る)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND_4",
+    "type": "talk_topic",
+    "dynamic_line": "逃げちゃいました。へへ。\nいくらも行かないうちにあちこちで暴動が起きているのに気が付いて、あのゾンビはホンモノなんだなってなったときには無理って思ったんですが、けっこう離れちゃってたしうちに向かおうって走って逃げて、したら先輩と会ったって訳ですよ",
+    "responses": [
+      { "text": "(声をかけたらすごい声で叫ばれたのは)", "topic": "JK_TALK_BACKGROUND_5" },
+      { "text": "(話を打ち切る)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND_5",
+    "type": "talk_topic",
+    "dynamic_line": "すみません、センパイがゾンビになっちゃったと思って、つい。あとはでもご存じの通り、集まってきたゾンビに物を投げながらふたりで逃げて、センパイが避難シェルターに行くことを思いついて、助かりました",
+    "responses": [
+      { "text": "(無事でよかった)", "topic": "JK_TALK_BACKGROUND_6" },
+      { "text": "(話を打ち切る)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_BACKGROUND_6",
+    "type": "talk_topic",
+    "dynamic_line": "センパイに会えなかったらパニクったまま暴動に巻き込まれていたかも。\nあれ、そういえばセンパイはどうしてあんなところに居たんです？",
+    "speaker_effect": { "effect": { "npc_add_var": "n_jk_told_backstory", "value": "done" } },
+    "responses": [ { "text": "(その話はまた今度)", "topic": "TALK_DONE" } ]
+  }
+]

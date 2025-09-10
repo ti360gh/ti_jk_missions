@@ -10,11 +10,11 @@
     "id": "Skin_jk",
     "subtype": "distribution",
     "traits": [
-      { "trait": "SKIN_DARK", "prob": 20 },
+      { "trait": "SKIN_LIGHT", "prob": 40 },
       { "trait": "SKIN_MEDIUM", "prob": 30 },
-      { "trait": "SKIN_TAN", "prob": 30 },
-      { "trait": "SKIN_PINK", "prob": 0 },
-      { "trait": "SKIN_LIGHT", "prob": 20 }
+      { "trait": "SKIN_TAN", "prob": 20 },
+      { "trait": "SKIN_DARK", "prob": 10 },
+      { "trait": "SKIN_PINK", "prob": 0 }
     ]
   },
   {
@@ -72,7 +72,7 @@
   },
   {
     "type": "trait_group",
-    "id": "Hair_black_jk",
+    "id": "Hair_Black_jk",
     "subtype": "distribution",
     "traits": [
       { "trait": "hair_short", "variant": "black", "prob": 4 },

@@ -1,0 +1,409 @@
+[
+  {
+    "id": "JK_TALK_WAKE_UP",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "npc_has_effect": "sleep",
+      "yes": {
+        "npc_need": "sleepiness",
+        "level": "EXHAUSTED",
+        "no": {
+          "npc_need": "sleepiness",
+          "level": "DEAD_TIRED",
+          "no": {
+            "npc_need": "sleepiness",
+            "level": "TIRED",
+            "no": "ううん、あと5分……",
+            "yes": "センパイ、なんです？　まだ寝たい……"
+          },
+          "yes": "うう、眠くて死にそうです……"
+        },
+        "yes": "眠たいです……"
+      },
+      "no": "あれ、何か忘れてました？"
+    },
+    "responses": [
+      { "text": "(起こす)", "topic": "TALK_NONE", "effect": "wake_up" },
+      { "text": "(寝かせておく)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": [ "JK_TALK_FRIEND", "JK_TALK_GIVE_ITEM", "JK_TALK_USE_ITEM", "JK_TALK_RADIO" ],
+    "type": "talk_topic",
+    "dynamic_line": {
+      "is_by_radio": " ……ザザザ…… センパイ、聞こえますか？",
+      "no": { "has_reason": { "use_reason": true }, "no": "どうしました？　センパイ" }
+    },
+    "responses": [
+      { "text": "(話をする)", "topic": "JK_TALK_ALLY_SOCIAL" },
+      { "text": "(指示を出す)", "topic": "JK_TALK_ALLY_ORDERS" },
+      { "text": "(指定の場所へ移動させる)", "topic": "JK_TALK_GOTO_LOCATION", "effect": "goto_location" },
+      { "text": "([行動規制] 行動ルールを設定する)", "topic": "TALK_DONE", "effect": "npc_rules_menu" },
+      { "text": "(ステータスを見る)", "topic": "JK_TALK_FRIEND", "effect": "reveal_stats" },
+      {
+        "text": "[DEBUG MIND CONTROL] Now listen closely… (DEBUG FUNCTIONS)",
+        "condition": { "u_has_trait": "DEBUG_MIND_CONTROL" },
+        "topic": "TALK_ALLY_DEBUG"
+      },
+      { "text": "(道を別つ)", "topic": "JK_TALK_LEAVE" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": [ "JK_TALK_ALLY_SOCIAL" ],
+    "type": "talk_topic",
+    "dynamic_line": {
+      "is_by_radio": " *ザザッ* センパイ、電池がもったいないのでお話は戻ってからにしませんか？",
+      "no": "お話ししましょう！"
+    },
+    "responses": [
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_FRIEND_CONVERSATION",
+        "condition": { "and": [ "at_safe_space", { "not": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } } ] },
+        "switch": true,
+        "//": "If the NPC doesn't have a BG survival story flagged trait, and didn't start the game as a static NPC, give them a BG story.",
+        "//2": "This is a stand-in for some kind of better system to add a random trait."
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_FRIEND_CONVERSATION_1",
+        "condition": { "and": [ "at_safe_space", { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } ] },
+        "switch": true
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_CONVERSATION_DANGER",
+        "condition": { "not": "at_safe_space" },
+        "switch": true
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_CONVERSATION_RADIO",
+        "condition": { "not": "is_by_radio" },
+        "switch": true
+      },
+      {
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_FRIEND_CHAT",
+        "condition": { "not": { "npc_has_effect": "asked_to_socialize" } }
+      },
+      { "text": "(やって欲しいことを聞く)", "topic": "TALK_MISSION_LIST" },
+      { "text": "(戻る)", "topic": "TALK_NONE" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_CONVERSATION_DANGER",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "gendered_line": "今ですかセンパイ？　ちょっとマズくないですか…",
+      "relevant_genders": [ "u" ]
+    },
+    "responses": [
+      {
+        "text": "(問題ない)",
+        "topic": "JA_TALK_FRIEND_CONVERSATION",
+        "condition": { "not": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } },
+        "//": "If the NPC already has a BG story, or started out as a static NPC (and so probably doesn't need a random bg story), then go on.",
+        "switch": true
+      },
+      {
+        "text": "(問題ない)",
+        "topic": "JK_TALK_CONVERSATION_1",
+        "switch": true,
+        "condition": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] }
+      },
+      { "text": "(場所を移してからにしよう)", "topic": "TALK_NONE" },
+      { "text": "(会話を終える)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": [ "JK_TALK_ALLY_ORDERS" ],
+    "type": "talk_topic",
+    "dynamic_line": [ "はい、センパイ", "どうしました？　センパイ", "何をすればいいですか？", "はい！" ],
+    "responses": [
+      {
+        "text": "(アイテムを取引する)",
+        "condition": { "and": [ { "not": { "npc_has_trait": "HALLUCINATION" } }, { "not": "is_by_radio" } ] },
+        "topic": "JK_TALK_FRIEND",
+        "effect": "start_trade",
+        "switch": true,
+        "default": true
+      },
+      {
+        "text": "(アイテムを取引する)",
+        "topic": "JK_TRADE_HALLU",
+        "condition": { "npc_has_trait": "HALLUCINATION" },
+        "switch": true,
+        "default": false
+      },
+      {
+        "text": "(アイテムを使ってもらう)",
+        "condition": { "not": "is_by_radio" },
+        "topic": "JK_TALK_FRIEND",
+        "effect": "npc_gets_item_to_use"
+      },
+      {
+        "text": "(アイテムを持ってもらう)",
+        "condition": { "not": "is_by_radio" },
+        "topic": "JK_TALK_FRIEND",
+        "effect": "npc_gets_item"
+      },
+      {
+        "text": "(この場を防衛させる)",
+        "condition": { "not": "is_by_radio" },
+        "topic": "JK_TALK_GUARD",
+        "effect": "assign_guard"
+      },
+      {
+        "text": "(騎乗させる)",
+        "condition": { "and": [ { "not": "npc_is_riding" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "topic": "TALK_DONE",
+        "effect": "find_mount"
+      },
+      { "text": "(降りてもらう)", "condition": "npc_is_riding", "topic": "TALK_DONE", "effect": "dismount" },
+      {
+        "text": "(使わないアイテムを落としてもらう)",
+        "condition": { "and": [ { "not": "is_by_radio" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "topic": "TALK_DONE",
+        "effect": "drop_items_in_place"
+      },
+      { "text": "(今の作業について)", "topic": "JK_TALK_ACTIVITIES" },
+      { "text": "(拠点について)", "topic": "JK_TALK_CAMP" },
+      { "text": "(戦闘スタイルを変える)", "topic": "TALK_DONE", "effect": "pick_style" },
+      { "text": "(戻る)", "topic": "TALK_NONE" },
+      { "text": "(会話を終える)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_LEAVE",
+    "type": "talk_topic",
+    "dynamic_line": "そんな、お別れですか、センパイ？",
+    "responses": [
+      { "text": "(別れる)", "topic": "TALK_DONE", "effect": "leave" },
+      { "text": "(何でもない)", "topic": "TALK_NONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_RADIO",
+    "type": "talk_topic",
+    "responses": [
+      { "text": "(移動先を指示する)", "topic": "JK_TALK_GOTO_LOCATION_RADIO", "effect": "goto_location" },
+      { "text": "(その場を防衛させる)", "topic": "TALK_DONE", "effect": "assign_guard" },
+      {
+        "text": "(拠点のためにできることを聞く)",
+        "topic": "TALK_DONE",
+        "effect": "basecamp_mission",
+        "condition": { "npc_at_om_location": "FACTION_CAMP_ANY" }
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_DESCRIBE_MISSION",
+    "type": "talk_topic",
+    "responses": [ { "text": "(了解)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": "JK_TALK_ACTIVITIES",
+    "type": "talk_topic",
+    "dynamic_line": { "npc_has_activity": "今は<current_activity>をしてます", "no": "I'm not doing much currently." },
+    "responses": [
+      { "text": "(今の目標を聞く)", "topic": "JK_TALK_DESCRIBE_MISSION" },
+      { "text": "(続けてもらう)", "topic": "TALK_DONE" },
+      {
+        "text": "(手を止めてもらう)",
+        "topic": "TALK_DONE",
+        "condition": "npc_has_activity",
+        "effect": "revert_activity"
+      },
+      {
+        "text": "(近くのアイテムを分類してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "sort_loot"
+      },
+      {
+        "text": "(建設区画で建設を頼む)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_construction"
+      },
+      {
+        "text": "(掘削作業を頼む)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_mining"
+      },
+      {
+        "text": "(区画の液体を掃除してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_mopping"
+      },
+      {
+        "text": "(本から学習してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_read"
+      },
+      {
+        "text": "(電子書籍から学習してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_eread"
+      },
+      {
+        "text": "(持っている本で学習してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_read_repeatedly"
+      },
+      {
+        "text": "(区画内の車両を解体してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_vehicle_deconstruct"
+      },
+      {
+        "text": "(区画内の車両を修理してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_vehicle_repair"
+      },
+      {
+        "text": "(丸太から木材を切り出してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_chop_plank"
+      },
+      {
+        "text": "(死体の解体を頼む)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_butcher"
+      },
+      {
+        "text": "(区画の樹木を伐採してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_chop_trees"
+      },
+      {
+        "text": "(釣りを頼む)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_fishing"
+      },
+      {
+        "text": "(農作業を頼む)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_farming"
+      },
+      {
+        "text": "(区画のアイテムを分解してもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_disassembly"
+      },
+      {
+        "text": "(アイテムを作ってもらう)",
+        "topic": "TALK_DONE",
+        "condition": { "and": [ { "not": "npc_has_activity" }, { "not": { "npc_has_trait": "HALLUCINATION" } } ] },
+        "effect": "do_craft"
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_GOTO_LOCATION_RADIO",
+    "type": "talk_topic",
+    "dynamic_line": "...ザザザザ...了解ですセンパイ。指定された場所に向かいます",
+    "responses": [ { "text": "(了解)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": "JK_TALK_GOTO_LOCATION",
+    "type": "talk_topic",
+    "dynamic_line": {
+      "npc_is_travelling": "はい、センパイ。向かいます",
+      "no": "そうですか？　いつでも言ってくださいね！"
+    },
+    "responses": [ { "text": "(了解)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": "JK_TRADE_HALLU",
+    "type": "talk_topic",
+    "dynamic_line": "(幻覚のため取引できない)",
+    "responses": [ { "text": "Fair enough.", "topic": "TALK_NONE" } ]
+  },
+  {
+    "id": "JK_TALK_HALLU_CAMP",
+    "type": "talk_topic",
+    "dynamic_line": "(幻覚のため拠点の話ができない)",
+    "responses": [ { "text": "Fair enough.", "topic": "TALK_NONE" } ]
+  },
+  {
+    "id": "JK_TALK_CAMP_SITES",
+    "type": "talk_topic",
+    "dynamic_line": { "list_faction_camp_sites": true },
+    "responses": [
+      { "text": "(拠点についてもっと話す)", "topic": "TALK_NONE" },
+      { "text": "(会話を終える)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_CAMP",
+    "type": "talk_topic",
+    "dynamic_line": "拠点がどうしました？",
+    "responses": [
+      {
+        "text": "(この拠点で作業してもらう)",
+        "condition": { "npc_at_om_location": "FACTION_CAMP_ANY" },
+        "topic": "JK_TALK_GUARD",
+        "effect": "assign_camp"
+      },
+      {
+        "text": "(ここに拠点を作る)",
+        "topic": "JK_TALK_HALLU_CAMP",
+        "condition": { "npc_has_trait": "HALLUCINATION" },
+        "switch": true
+      },
+      {
+        "text": "(ここに拠点を作る)",
+        "topic": "TALK_DONE",
+        "effect": "start_camp",
+        "condition": { "npc_at_om_location": "FACTION_CAMP_START" },
+        "switch": true,
+        "default": true
+      },
+      {
+        "text": "(ここがダメならどこにしたらいいだろう？)",
+        "topic": "JK_TALK_CAMP_SITES",
+        "condition": { "not": { "npc_at_om_location": "FACTION_CAMP_START" } },
+        "switch": true,
+        "default": true
+      },
+      {
+        "text": "(この拠点を放棄する)",
+        "condition": { "npc_at_om_location": "FACTION_CAMP_ANY" },
+        "topic": "JK_TALK_ABANDON"
+      },
+      {
+        "text": "(拠点でやるべきことを聞く)",
+        "topic": "TALK_DONE",
+        "effect": "basecamp_mission",
+        "condition": { "npc_at_om_location": "FACTION_CAMP_ANY" }
+      },
+      { "text": "(戻る)", "topic": "TALK_NONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_ABANDON",
+    "type": "talk_topic",
+    "dynamic_line": { "gendered_line": "本当にいいんですか、センパイ？", "relevant_genders": [ "u" ] },
+    "responses": [
+      { "text": "(拠点を放棄する)", "topic": "TALK_DONE", "effect": "abandon_camp" },
+      { "text": "(やめる)", "topic": "TALK_NONE" }
+    ]
+  }
+]

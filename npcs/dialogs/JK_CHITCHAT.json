@@ -1,0 +1,130 @@
+[
+  {
+    "id": "JK_TALK_FRIEND_CHAT",
+    "type": "talk_topic",
+    "dynamic_line": [
+      {
+        "math": [ "time_since('cataclysm', 'unit':'days') >= 100" ],
+        "yes": [
+          {
+            "u_has_item": "beer",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "u_has_item": "european_pilsner",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "u_has_item": "drink_hard_seltzer",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "u_has_item": "pale_ale",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "u_has_item": "india_pale_ale",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "u_has_item": "wine_barley",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "is_season": "summer",
+            "yes": "<jk_chitchat_prefix_summer>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "is_season": "winter",
+            "yes": "<jk_chitchat_prefix_winter>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          {
+            "npc_has_effect": "infected",
+            "yes": "<chitchat_prefix_infected>  <jk_neutralchitchat_later>",
+            "no": "<jk_neutralchitchat_later>"
+          },
+          { "npc_has_intelligence": 8, "yes": "<jk_insightfulchitchat>", "no": "<jk_thoughtfulchitchat>" },
+          { "npc_has_perception": 8, "yes": "<jk_insightfulchitchat>", "no": "<jk_thoughtfulchitchat>" }
+        ],
+        "no": [
+          { "u_has_item": "beer", "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>", "no": "<jk_neutralchitchat>" },
+          {
+            "u_has_item": "european_pilsner",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "u_has_item": "drink_hard_seltzer",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "u_has_item": "pale_ale",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "u_has_item": "india_pale_ale",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "u_has_item": "wine_barley",
+            "yes": "<jk_chitchat_prefix_booze>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "is_season": "summer",
+            "yes": "<jk_chitchat_prefix_summer>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "is_season": "winter",
+            "yes": "<jk_chitchat_prefix_winter>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          {
+            "npc_has_effect": "infected",
+            "yes": "<chitchat_prefix_infected>  <jk_neutralchitchat>",
+            "no": "<jk_neutralchitchat>"
+          },
+          { "npc_has_intelligence": 8, "yes": "<jk_insightfulchitchat>", "no": "<jk_thoughtfulchitchat>" },
+          { "npc_has_perception": 8, "yes": "<jk_insightfulchitchat>", "no": "<jk_thoughtfulchitchat>" }
+        ]
+      }
+    ],
+    "responses": [
+      {
+        "text": "(雑談を楽しむ)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "not": { "u_has_trait": "PSYCHOPATH" } },
+        "effect": [ "morale_chat_activity", { "npc_add_effect": "asked_to_socialize", "duration": 7000 } ]
+      },
+      {
+        "text": "(雑談を楽しむ)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "u_has_trait": "PSYCHOPATH" },
+        "effect": [
+          {
+            "u_add_morale": "morale_chat_uncaring",
+            "bonus": -10,
+            "max_bonus": -20,
+            "duration": "120 minutes",
+            "decay_start": "60 minutes"
+          },
+          { "npc_add_effect": "asked_to_socialize", "duration": 7000 }
+        ]
+      }
+    ]
+  }
+]

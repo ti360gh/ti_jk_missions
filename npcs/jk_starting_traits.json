@@ -1,5 +1,17 @@
 [
   {
+    "type": "trait_group",
+    "id": "trait_group_CHILL",
+    "subtype": "distribution",
+    "traits": [ { "trait": "RESISTCHILL" }, { "trait": "VULNERABLECHILL" } ]
+  },
+  {
+    "type": "trait_group",
+    "id": "trait_group_WARN",
+    "subtype": "distribution",
+    "traits": [ { "trait": "RESISTWARM" }, { "trait": "VULNERABLEWARM" } ]
+  },
+  {
     "//": "初期特性",
     "type": "trait_group",
     "id": "NPC_starting_traits_jk_default",
@@ -33,17 +45,5 @@
       { "trait": "GOODHEARING", "prob": 10 },
       { "trait": "INFRESIST", "prob": 10 }
     ]
-  },
-  {
-    "type": "trait_group",
-    "id": "trait_group_CHILL",
-    "subtype": "distribution",
-    "traits": [ { "trait": "RESISTCHILL" }, { "trait": "VULNERABLECHILL" } ]
-  },
-  {
-    "type": "trait_group",
-    "id": "trait_group_WARM",
-    "subtype": "distribution",
-    "traits": [ { "trait": "RESISTWARM" }, { "trait": "VULNERABLEWARM" } ]
   }
 ]
