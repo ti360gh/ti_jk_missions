@@ -32,9 +32,59 @@
     "type": "talk_topic",
     "dynamic_line": {
       "is_by_radio": " ……ザザザ…… センパイ、聞こえますか？",
-      "no": { "has_reason": { "use_reason": true }, "no": "どうしました？　センパイ" }
+      "no": {
+        "has_reason": { "use_reason": true },
+        "no": {
+          "//": "ゲーム開始はthe dayから5日後。>=6はゲーム開始翌日を想定。noは一日目のメッセージ",
+          "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ],
+          "no": "や～大変でしたね、センパイ",
+          "yes": {
+            "//": "ミッション受託前。",
+            "math": [ "n_jk_mission_status == 1" ],
+            "yes": "センパイ、ちょっと相談があるんですけど……",
+            "no": {
+              "math": [ "n_jk_mission_status == 3" ],
+              "yes": "センパイ、ちょっと思いついたことがあるんですけど……",
+              "no": "どうしたんですか？　センパイ"
+            }
+          }
+        }
+      }
     },
     "responses": [
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "topic": "JK_TALK_MISSION2",
+        "condition": { "math": [ "n_jk_mission_status == 3" ] },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "topic": "JK_TALK_MISSION1",
+        "condition": {
+          "//": "第一ミッション受託前",
+          "and": [ { "math": [ "n_jk_mission_status == 1" ] }, { "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ] } ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(研究所に着いたけど……)",
+        "topic": "JK_TALK_MISSION1_COMPLETE",
+        "condition": {
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_1" },
+            { "u_at_om_location": "lab_stairs" },
+            { "npc_at_om_location": "lab_stairs" }
+          ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談について)",
+        "topic": "JK_TALK_MISSION1_INQUIRE",
+        "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_1" },
+        "switch": true
+      },
       { "text": "(話をする)", "topic": "JK_TALK_ALLY_SOCIAL" },
       { "text": "(指示を出す)", "topic": "JK_TALK_ALLY_ORDERS" },
       { "text": "(指定の場所へ移動させる)", "topic": "JK_TALK_GOTO_LOCATION", "effect": "goto_location" },
@@ -45,7 +95,6 @@
         "condition": { "u_has_trait": "DEBUG_MIND_CONTROL" },
         "topic": "TALK_ALLY_DEBUG"
       },
-      { "text": "(道を別つ)", "topic": "JK_TALK_LEAVE" },
       { "text": "(会話終了)", "topic": "TALK_DONE" }
     ]
   },
@@ -86,9 +135,29 @@
       {
         "text": "(気分転換に雑談に誘う)",
         "topic": "JK_TALK_FRIEND_CHAT",
-        "condition": { "not": { "npc_has_effect": "asked_to_socialize" } }
+        "condition": {
+          "and": [
+            { "not": { "npc_has_effect": "asked_to_socialize" } },
+            "at_safe_space",
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission5" } ] } }
+          ]
+        }
       },
-      { "text": "(やって欲しいことを聞く)", "topic": "TALK_MISSION_LIST" },
+      {
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_MISSION1_AFTER",
+        "condition": {
+          "and": [
+            { "not": { "npc_has_effect": "asked_to_socialize" } },
+            "at_safe_space",
+            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] }
+          ]
+        }
+      },
       { "text": "(戻る)", "topic": "TALK_NONE" },
       { "text": "(会話終了)", "topic": "TALK_DONE" }
     ]
@@ -174,15 +243,6 @@
       { "text": "(戦闘スタイルを変える)", "topic": "TALK_DONE", "effect": "pick_style" },
       { "text": "(戻る)", "topic": "TALK_NONE" },
       { "text": "(会話を終える)", "topic": "TALK_DONE" }
-    ]
-  },
-  {
-    "id": "JK_TALK_LEAVE",
-    "type": "talk_topic",
-    "dynamic_line": "そんな、お別れですか、センパイ？",
-    "responses": [
-      { "text": "(別れる)", "topic": "TALK_DONE", "effect": "leave" },
-      { "text": "(何でもない)", "topic": "TALK_NONE" }
     ]
   },
   {
@@ -405,5 +465,21 @@
       { "text": "(拠点を放棄する)", "topic": "TALK_DONE", "effect": "abandon_camp" },
       { "text": "(やめる)", "topic": "TALK_NONE" }
     ]
+  },
+  {
+    "id": "JK_TALK_FRIEND_GUARD",
+    "type": "talk_topic",
+    "dynamic_line": "あっセンパイ、サボってないですよ。ちゃんとここを守ってます",
+    "responses": [
+      { "text": "(一緒に行く)", "topic": "JK_TALK_STOP_GUARD", "effect": "stop_guard" },
+      { "text": "(話をする)", "topic": "JK_TALK_FRIEND" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_STOP_GUARD",
+    "type": "talk_topic",
+    "dynamic_line": "やった！ また一緒に行きましょう",
+    "responses": [ { "text": "(会話終了)", "topic": "TALK_DONE" } ]
   }
 ]

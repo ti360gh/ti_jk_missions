@@ -58,6 +58,15 @@
     "type": "talk_topic",
     "dynamic_line": "センパイに会えなかったらパニクったまま暴動に巻き込まれていたかも。\n  あれ、そういえばセンパイはどうしてあんなところに居たんです？",
     "speaker_effect": { "effect": { "npc_add_var": "n_jk_told_backstory", "value": "done" } },
-    "responses": [ { "text": "(その話はまた今度)", "topic": "TALK_DONE" } ]
+    "responses": [
+      {
+        "text": "(その話はまた今度)",
+        "topic": "TALK_DONE",
+        "effect": [
+          { "u_add_morale": "jk_morale_background", "bonus": 20, "max_bonus": 30, "duration": "24 h", "decay_start": "20 h" },
+          { "give_achievement": "achievement_jk_background" }
+        ]
+      }
+    ]
   }
 ]

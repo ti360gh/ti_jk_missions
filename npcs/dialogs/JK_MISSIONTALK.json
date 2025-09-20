@@ -1,0 +1,44 @@
+[
+  {
+    "id": "JK_TALK_MISSION1_AFTER",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、あの研究所で何があったんでしょう。\n  入り口はちゃんと閉まっていて、タレットもあったはずなのに、なのに中にゾンビが居るなんておかしいです。\n  もしかして、合衆国中がこんなふうになっているのかな。ママは大丈夫なのかな……",
+    "responses": [ { "text": "(話を聞く)", "topic": "JK_TALK_MISSION1_AFTER2" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION1_AFTER2",
+    "type": "talk_topic",
+    "dynamic_line": "でも、ありがとうございました、センパイ。一緒にラボを探してくれてうれしかったです。\n  悩んでても仕方ないし、先に進むしかありませんよね。\n  でも、これからどうしましょう？",
+    "responses": [
+      {
+        "text": "(先に進もう)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "not": { "u_has_trait": "PSYCHOPATH" } }, { "not": { "u_has_trait": "NUMB" } } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          {
+            "u_add_morale": "jk_morale_talk",
+            "bonus": 20,
+            "max_bonus": 35,
+            "duration": "120 minutes",
+            "decay_start": "60 minutes"
+          },
+          { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
+          { "u_add_var": "u_jk_clear_mission1", "value": "talked" }
+        ]
+      },
+      {
+        "text": "(先に進もう)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "u_has_trait": "PSYCHOPATH" }, { "u_has_trait": "NUMB" } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
+          { "u_add_var": "u_jk_clear_mission1", "value": "talked" }
+        ]
+      }
+    ]
+  }
+]

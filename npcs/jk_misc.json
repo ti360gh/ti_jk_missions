@@ -1,0 +1,77 @@
+[
+  {
+    "type": "overmap_special",
+    "id": "jk_Lab",
+    "overmaps": [
+      { "point": [ 0, 0, 0 ], "overmap": "lab_stairs" },
+      { "point": [ 0, 0, 1 ], "overmap": "full_basic_lab_roof" },
+      { "point": [ 0, -1, 0 ], "locations": [ "land", "road" ] },
+      { "point": [ 1, 1, -1 ], "overmap": "lab" },
+      { "point": [ 0, 1, -1 ], "overmap": "lab" },
+      { "point": [ 0, 0, -1 ], "overmap": "lab" }
+    ],
+    "connections": [ { "point": [ 0, -1, 0 ], "terrain": "road", "connection": "local_road" } ],
+    "locations": [ "field", "forest_without_trail" ],
+    "city_distance": [ 10, -1 ],
+    "occurrences": [ 1, 100 ],
+    "flags": [ "LAB", "OVERMAP_UNIQUE", "MAN_MADE" ]
+  },
+  {
+    "id": "jk_morale_chat",
+    "type": "morale_type",
+    "text": "後輩と楽しく会話した"
+  },
+  {
+    "id": "jk_morale_chat_nope",
+    "type": "morale_type",
+    "text": "興味のない会話"
+  },
+  {
+    "id": "jk_morale_background",
+    "type": "morale_type",
+    "text": "後輩と出会った日の話を聞いた"
+  },
+  {
+    "id": "jk_morale_talk",
+    "type": "morale_type",
+    "text": "後輩の思いを聞いた"
+  },
+  {
+    "id": "achievement_jk_background",
+    "type": "achievement",
+    "name": "後輩と出会った",
+    "manually_given": true,
+    "description": "大破局の日に後輩と会えたのは幸運だった",
+    "requirements": [  ]
+  },
+  {
+    "id": "achievement_jk_mission1",
+    "type": "achievement",
+    "name": "アリーヤ博士の残したもの",
+    "manually_given": true,
+    "description": "大破局ではあらゆるものが変わってしまう。変わっていないものを留めることだけが、人にできる唯一の抵抗なのかもしれない",
+    "requirements": [  ]
+  },
+  {
+    "id": "JK_ACT_SOCIALIZE",
+    "type": "activity_type",
+    "activity_level": "NO_EXERCISE",
+    "verb": "後輩との雑談",
+    "based_on": "time",
+    "rooted": true,
+    "refuel_fires": true,
+    "auto_needs": true,
+    "ignored_distractions": [ "talked_to" ]
+  },
+  {
+    "id": "JK_ACT_SOCIALIZE_NOPE",
+    "type": "activity_type",
+    "activity_level": "NO_EXERCISE",
+    "verb": "後輩との雑談",
+    "based_on": "time",
+    "rooted": true,
+    "refuel_fires": true,
+    "auto_needs": true,
+    "ignored_distractions": [ "talked_to" ]
+  }
+]

@@ -22,7 +22,6 @@
     "entries": [
       { "item": "textbook_speech" },
       { "item": "novel_coa" },
-      { "item": "id_science" },
       { "group": "charged_smart_phone", "contents-item": "mag_news" },
       { "group": "starter_wallet_full" }
     ]

@@ -15,7 +15,6 @@
     "int": 8,
     "per": 8,
     "personality": { "aggression": 0, "bravery": 0, "collector": 0, "altruism": 0 },
-    "mission_offered": "JK_MISSION_FIND_LABO_1",
     "chat": "JK_TALK_START",
     "talk_friend": "JK_TALK_FRIEND",
     "talk_radio": "JK_TALK_RADIO",
@@ -23,6 +22,8 @@
     "talk_stole_item": "JK_TALK_STOLE_ITEM",
     "talk_wake_up": "JK_TALK_WAKE_UP",
     "talk_friend_guard": "JK_TALK_FRIEND_GUARD",
+    "talk_mission_inquire": "JK_TALK_FRIEND",
+    "talk_mission_describe_urgent": "JK_TALK_FRIEND",
     "<acknowledged>": "<jk_acknowledged>",
     "<hungry>": "<jk_hangry>",
     "<camp_food_thanks>": "<jk_camp_food_thanks>",
@@ -108,14 +109,16 @@
     "worn_override": "NC_TI_JK_CLASS_worn",
     "carry_override": "NC_TI_JK_CLASS_carried",
     "skills": [
-      { "skill": "chemistry", "bonus": 2 },
+      { "skill": "ALL", "level": { "constant": 0 } },
+      { "skill": "speech", "bonus": 3 },
       { "skill": "computer", "bonus": 2 },
+      { "skill": "survival", "bonus": 1 },
+      { "skill": "chemistry", "bonus": 2 },
       { "skill": "driving", "bonus": 2 },
-      { "skill": "cooking", "bonus": 1 },
-      { "skill": "speech", "bonus": 1 },
+      { "skill": "cooking", "bonus": 4 },
       { "skill": "fabrication", "bonus": 1 },
       { "skill": "firstaid", "bonus": 1 },
-      { "skill": "swimming", "bonus": 2 }
+      { "skill": "swimming", "bonus": 3 }
     ],
     "traits": [ { "group": "NPC_starting_traits_jk_default" }, { "group": "Appearance_jk" } ]
   },
@@ -137,8 +140,8 @@
       {
         "topic": "TALK_DONE",
         "text": "(一緒に行く)",
-        "effect": { "npc_first_topic": "JK_TALK_FRIEND" },
-        "opinion": { "trust": 100, "value": 100, "fear": -100, "anger": -100 }
+        "effect": [ { "npc_first_topic": "JK_TALK_FRIEND" }, { "math": [ "n_jk_mission_status++" ] } ],
+        "opinion": { "trust": 100, "value": 100, "fear": -100, "anger": -100, "owed": 100 }
       }
     ]
   },
@@ -151,7 +154,7 @@
       "クルマの運転ならやったことあります！ クルマはありませんけども",
       "農場で食べ物を見つけたら私が料理してあげますよ！",
       "街に行くなら準備しないとですね。だってほら、あんなだったし……",
-      "なるほど、シェルターのコンピュータで避難センターの場所を調べたらいいですね",
+      "なるほど、シェルターのどこかに避難センターの情報があるはずですよね",
       "わかりました。手分けしてシェルターの中に役に立つものがあるか調べてみましょう"
     ],
     "responses": [
