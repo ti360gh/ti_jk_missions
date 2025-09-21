@@ -2,24 +2,16 @@
   {
     "id": "JK_MISSION_FIND_LABO_1",
     "type": "mission_definition",
-    "name": "科学研究所を目指そう",
+    "name": "科学研究所を目指す",
     "difficulty": 2,
     "value": 0,
     "goal": "MGOAL_CONDITION",
     "goal_condition": "MGOAL_NULL",
-    "description": "後輩の言っていた研究所を見つける",
+    "description": "後輩の言っていた研究所を見つけよう",
     "destination": "lab_stairs",
     "origins": [ "ORIGIN_ANY_NPC" ],
     "start": {
-      "assign_mission_target": {
-        "om_terrain": "lab_stairs",
-        "reveal_radius": 2,
-        "om_special": "jk_Lab",
-        "z": 0,
-        "random": true,
-        "search_range": 52,
-        "cant_see": true
-      },
+      "assign_mission_target": { "om_terrain": "lab_stairs", "reveal_radius": 2, "om_special": "jk_Lab", "z": 0, "random": true, "search_range": 52 },
       "effect": { "u_spawn_item": "id_science" }
     },
     "has_generic_rewards": false,
@@ -36,75 +28,17 @@
     }
   },
   {
-    "id": "JK_TALK_MISSION1",
-    "type": "talk_topic",
-    "dynamic_line": "あの、実は安全かもしれない場所を知っているんです。\nちょっと前にママがこのカードをくれました。もし何かすごく悪いことが起きたら、この研究所に行きなさいって。\nそこにママはいないけど、カードがあれば中に入れるし他の場所よりは安全だって。\nだって、今のこれはすごく悪いことですよね",
-    "responses": [ { "text": "(行ってみる)", "topic": "JK_TALK_MISSION1_ACCEPT" } ]
-  },
-  {
-    "id": "JK_TALK_MISSION1_ACCEPT",
-    "type": "talk_topic",
-    "dynamic_line": "ありがとうございます、センパイ！ カードはこれです。\nラボの場所を地図にメモするのでちょっと待ってください",
-    "responses": [
-      {
-        "text": "(カードのかわりに地図を渡して待つ)",
-        "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_1" }, { "math": [ "n_jk_mission_status++" ] } ]
-      }
-    ]
-  },
-  {
-    "id": "JK_TALK_MISSION1_INQUIRE",
-    "type": "talk_topic",
-    "dynamic_line": [
-      "はい。たぶんそのカードで他の研究所にも入れると思います",
-      "ママは研究所には最近の暴徒対策にセキュリティタレットがあるって言ってました",
-      "ゲストカードだから一回しか使えないんですって。一緒に入りましょうね",
-      "そうですね。他の研究所があればそこを目指してもいいと思います",
-      "こんなふうになったから、ちゃんと準備してから出発しましょう",
-      "研究所の位置は地図にメモしました。中に入って助けてもらえるか聞いてみましょう"
-    ],
-    "responses": [
-      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION1_INQUIRE" },
-      { "text": "(違う話)", "topic": "TALK_NONE" },
-      { "text": "(会話終了)", "topic": "TALK_DONE" }
-    ]
-  },
-  {
-    "id": "JK_TALK_MISSION1_COMPLETE",
-    "type": "talk_topic",
-    "dynamic_line": "&研究所の内部は静まりかえっており、乾いた空気の中にうっすらとカビのような臭いが漂っている。\n\n「誰もいませんね……。あの～！  誰か、いませんか？」\n\n声は建物の中をむなしく響いた。",
-    "responses": [ { "text": "(生存者はいないようだ)", "topic": "JK_TALK_MISSION1_COMPLETE1" } ]
-  },
-  {
-    "id": "JK_TALK_MISSION1_COMPLETE1",
-    "type": "talk_topic",
-    "dynamic_line": "そうみたいですね……\n  どうしたんでしょう。安全だったはずなのに",
-    "responses": [
-      {
-        "text": "(調べてみよう)",
-        "topic": "TALK_DONE",
-        "effect": [
-          { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
-          "clear_mission",
-          { "u_add_var": "u_jk_clear_mission1", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
-        ]
-      }
-    ]
-  },
-  {
     "id": "JK_MISSION_FIND_LABO_2",
     "type": "mission_definition",
-    "name": "HUB01を目指そう",
+    "name": "HUB01を目指す",
     "difficulty": 2,
     "value": 0,
     "goal": "MGOAL_CONDITION",
     "goal_condition": "MGOAL_NULL",
-    "description": "後輩のママの職場を探す",
+    "description": "後輩のママの職場を探そう",
     "has_generic_rewards": false,
     "start": {
-      "assign_mission_target": { "om_terrain": "robofachq_surface_entrance", "reveal_radius": 2, "om_special": "hub_01", "z": 0, "cant_see": true }
+      "assign_mission_target": { "om_terrain": "robofachq_surface_entrance", "reveal_radius": 2, "om_special": "hub_01", "z": 0 }
     },
     "origins": [ "ORIGIN_ANY_NPC" ],
     "dialogue": {
@@ -120,121 +54,38 @@
     }
   },
   {
-    "id": "JK_TALK_MISSION2",
-    "type": "talk_topic",
-    "dynamic_line": "センパイ、思ったんですが、ママの働いていたラボに行ってみませんか？\nいえ、あそこは登録されたひと以外は家族でも入れてもらえないから、私も中に入ったことはないんです。\nでもこんな時なんだし、手を貸してくれるかもしれません。\nママはたぶん……いないかもしれませんけど。",
-    "responses": [ { "text": "(行ってみる)", "topic": "JK_TALK_MISSION2_ACCEPT" } ]
-  },
-  {
-    "id": "JK_TALK_MISSION2_ACCEPT",
-    "type": "talk_topic",
-    "dynamic_line": "ありがとうございます、センパイ！  ラボの場所を地図にメモするのでちょっと待ってください",
-    "responses": [
-      {
-        "text": "(地図を渡して待つ)",
-        "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_2" }, { "math": [ "n_jk_mission_status++" ] } ]
-      }
-    ]
-  },
-  {
-    "id": "JK_TALK_MISSION2_INQUIRE",
-    "type": "talk_topic",
-    "dynamic_line": [
-      "ハブ01に行きましょう！  中に入れてくれそうなら、センパイは私の家族ってことで！\n  私は、妹かな？",
-      "ママはホワイトハウスより厳重だって言ってました",
-      "ハブ01の人たちはほとんど家に帰らないんで研究をしてるんだって言ってました",
-      "研究が忙しいときはママもなかなか家に戻ってこなかったから、料理は私がするようになったんです\n  センパイにも作ってあげますね！",
-      "せめてママの無事だけでも知りたいんです",
-      "センパイの家族のことも心配です",
-      "距離があるから、歩きでは難しそうですね",
-      "ハブ01の位置はセンパイの地図にメモしました。"
-    ],
-    "responses": [
-      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION2_INQUIRE" },
-      { "text": "(違う話)", "topic": "TALK_NONE" },
-      { "text": "(会話終了)", "topic": "TALK_DONE" }
-    ]
-  },
-  {
-    "id": "JK_TALK_MISSION2_COMPLETE",
-    "type": "talk_topic",
-    "dynamic_line": "&研究所の内部は静まりかえっており、乾いた空気の中にうっすらとカビのような臭いが漂っている。\n\n「誰もいませんね……。あの～！  誰か、いませんか？」\n\n声は建物の中をむなしく響いた。",
-    "responses": [ { "text": "(生存者はいないようだ)", "topic": "JK_TALK_MISSION2_COMPLETE1" } ]
-  },
-  {
-    "id": "JK_TALK_MISSION2_COMPLETE1",
-    "type": "talk_topic",
-    "dynamic_line": "そうみたいですね……\n  どうしたんでしょう。安全だったはずなのに",
-    "responses": [
-      {
-        "text": "(調べてみよう)",
-        "topic": "TALK_DONE",
-        "effect": [
-          { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
-          "clear_mission",
-          { "u_add_var": "u_jk_clear_mission1", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
-        ]
-      }
-    ]
-  },
-  {
     "id": "JK_MISSION_FIND_LABO_3",
     "type": "mission_definition",
-    "name": "ハブの信用を得るには",
-    "followup": "JK_MISSION_FIND_LABO_4",
+    "name": "HUB01の信用を得るには",
     "difficulty": 2,
     "value": 0,
     "goal": "MGOAL_CONDITION",
-    "goal_condition": { "compare_string": [ "COMPLETE_JK_FIND_LABO_3", { "global_val": "g_jk_mission_status" } ] },
-    "description": "ハブの信用を得る",
+    "goal_condition": "MGOAL_NULL",
+    "description": "HUB01の要望に応える",
     "has_generic_rewards": false,
     "origins": [ "ORIGIN_ANY_NPC" ],
     "dialogue": {
       "describe": "describe",
-      "offer": "なんなんでしょうねあの人。センパイ、ママはハブ01で働いていたんです。\n話さえ聞いてもらえれば私たちが家族だって伝えられるのに",
-      "accepted": "さすがセンパイ。ありがとうございます！",
-      "rejected": "確かに、先にもっと違うところを目指した方がいいのかも",
-      "advice": "機会があればアリーヤ博士について聞いてみてもらえませんか？\nセンパイの言う通り、わたし達が役に立つことを証明すればもしかしたら信用してもらえるかも",
-      "inquire": "ハブのお仕事をするんですね。わたしも頑張ります！",
-      "success": "そうですか…。でも、ちょっとは信用してくれているみたいですね。\nそんなひとはいないって言うこともできたのに。\n",
-      "success_lie": "",
-      "failure": "確かに、先にもっと違うところを目指した方がいいのかも"
+      "offer": "-",
+      "accepted": "-",
+      "rejected": "-",
+      "advice": "-",
+      "inquire": "-",
+      "success": "-",
+      "success_lie": "-",
+      "failure": "-"
     }
   },
   {
     "id": "JK_MISSION_FIND_LABO_4",
     "type": "mission_definition",
-    "name": "ハブの信用を得るには2",
-    "followup": "JK_MISSION_FIND_LABO_5",
-    "difficulty": 2,
-    "value": 0,
-    "goal": "MGOAL_CONDITION",
-    "goal_condition": { "compare_string": [ "COMPLETE_JK_FIND_LABO_4", { "global_val": "g_jk_mission_status" } ] },
-    "description": "ハブの信用を得る",
-    "has_generic_rewards": false,
-    "origins": [ "ORIGIN_ANY_NPC" ],
-    "dialogue": {
-      "describe": "describe",
-      "offer": "センパイの言ったとおり、あのひと達はギブアンドテイクの取引には応じるみたいです。\nわたし達がもっと役に立つことを証明したら、何か教えてくれるかもしれません。",
-      "accepted": "考えてくれるんですね。ありがとうございます！",
-      "rejected": "確かに、先にもっと違うところを目指した方がいいのかも",
-      "advice": "せめて、ママが無事なのかだけでも知りたいな……",
-      "inquire": "ハブのお仕事をするんですね。わたしも頑張ります！",
-      "success": "消えたって、もういないってことですよね。……大丈夫です、覚悟はしていましたから。\nでも、もうわたしにはセンパイしかいなくなっちゃいましたね。ヘヘ\n",
-      "success_lie": "",
-      "failure": "確かに、先にもっと違うところを目指した方がいいのかも"
-    }
-  },
-  {
-    "id": "JK_MISSION_FIND_LABO_5",
-    "type": "mission_definition",
     "name": "アリーヤ博士の行方を追う",
     "difficulty": 2,
     "value": 0,
-    "goal": "MGOAL_GO_TO_TYPE",
-    "destination": "central_lab_entrance",
+    "goal": "MGOAL_CONDITION",
+    "goal_condition": "MGOAL_NULL",
+    "description": "後輩のママの位置が最後に確認された場所へ向かおう",
+    "has_generic_rewards": false,
     "start": {
       "assign_mission_target": {
         "om_terrain": "central_lab_entrance",
@@ -244,30 +95,17 @@
         "z": 0
       }
     },
-    "description": "アリーヤ博士の行方を追う",
-    "has_generic_rewards": false,
     "origins": [ "ORIGIN_ANY_NPC" ],
     "dialogue": {
       "describe": "describe",
-      "offer": "センパイ、ママ達が消えた場所は地図ではこの場所みたいです。",
-      "accepted": "ありがとうございます。センパイ",
-      "rejected": "確かに、先にもっと違うところを目指した方がいいのかも",
-      "advice": "何もないかもしれないけど、まずは行ってみませんか？",
-      "inquire": "たとえ何もなくても、わたしは大丈夫です",
-      "success": "センパイ、ほんとうにありがとうございました。わたしはもう、終わったことを考えるのはやめにします。\nこれからも、よろしくお願いします",
-      "success_lie": "",
-      "failure": "確かに、先にもっと違うところを目指した方がいいのかも"
+      "offer": "-",
+      "accepted": "-",
+      "rejected": "-",
+      "advice": "-",
+      "inquire": "-",
+      "success": "-",
+      "success_lie": "-",
+      "failure": "-"
     }
-  },
-  {
-    "id": "TALK_ROBOFAC_INTERCOM",
-    "type": "talk_topic",
-    "responses": [
-      {
-        "condition": { "not": { "compare_string": [ "COMPLETE_JK_FIND_LABO_2", { "global_val": "g_jk_mission_status" } ] } },
-        "text": "(後輩のママについて尋ねる)",
-        "topic": "JK_TALK_HUB_1"
-      }
-    ]
   }
 ]

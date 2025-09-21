@@ -39,12 +39,45 @@
           "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ],
           "no": "や～大変でしたね、センパイ",
           "yes": {
-            "//": "ミッション受託前。",
-            "math": [ "n_jk_mission_status == 1" ],
-            "yes": "センパイ、ちょっと相談があるんですけど……",
+            "//": "ミッション2開始前",
+            "math": [ "n_jk_mission_status <= 3" ],
+            "yes": {
+              "//": "にHUB01のインターコムに話しかけ",
+              "compare_string": [ { "u_val": "dialogue_intercom_u_discovered_robofac_intercom" }, "yes" ],
+              "yes": "<color_yellow>[ミッション]</color>センパイ、HUB01のことなんですけど……",
+              "no": {
+                "//": "ていなくてミッション1開始前",
+                "math": [ "n_jk_mission_status == 1" ],
+                "yes": "<color_yellow>[ミッション]</color>センパイ、ちょっと相談があるんですけど……",
+                "no": {
+                  "//": "ていなくてミッション1を終わらせ(通常ルート)",
+                  "math": [ "n_jk_mission_status == 3" ],
+                  "yes": "<color_yellow>[ミッション]</color>センパイ、ちょっと思いついたことがあるんですけど……",
+                  "no": "どうしたんですか？　センパイ"
+                }
+              }
+            },
+            "//2": "ミッション2開始以降",
             "no": {
-              "math": [ "n_jk_mission_status == 3" ],
-              "yes": "センパイ、ちょっと思いついたことがあるんですけど……",
+              "//": "にHUB01のインターコムに話しかけ",
+              "compare_string": [ { "u_val": "dialogue_intercom_u_discovered_robofac_intercom" }, "yes" ],
+              "yes": {
+                "//": "たのがミッション2実行中なら:->M2クリア",
+                "math": [ "n_jk_mission_status == 4" ],
+                "yes": "<color_yellow>[ミッション]</color>センパイ、HUB01のことなんですけど……",
+                "no": {
+                  "//": "でなくミッション4まで終わってるなら(通常応答)",
+                  "math": [ "n_jk_mission_status == 9" ],
+                  "yes": "どうしたんですか？　センパイ",
+                  "no": {
+                    "//": "でなくミッション3まで終わってるなら",
+                    "math": [ "n_jk_mission_status == 7" ],
+                    "yes": "<color_yellow>[ミッション]</color>センパイ、HUB01のことなんですけど……",
+                    "no": "どうしたんですか？　センパイ"
+                  }
+                }
+              },
+              "//2": "↓はミッション2実行中でHUB探索中",
               "no": "どうしたんですか？　センパイ"
             }
           }
@@ -54,6 +87,32 @@
     "responses": [
       {
         "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "topic": "JK_TALK_MISSION3",
+        "condition": {
+          "//": "ミッション2開始前にHUB01のインターコムに話しかけ:先行ルートでミッション3開始",
+          "and": [
+            { "not": { "math": [ "n_jk_mission_status == 0" ] } },
+            { "math": [ "n_jk_mission_status <= 3" ] },
+            { "compare_string": [ { "u_val": "dialogue_intercom_u_discovered_robofac_intercom" }, "yes" ] }
+          ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "topic": "JK_TALK_MISSION2_COMPLETE",
+        "condition": {
+          "//": "ミッション2の間に完了条件(親族に会いに来た)を聞いた(通常ルート)",
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
+            { "compare_string": [ { "u_val": "u_jk_mission2_talk_hub1" }, "done" ] }
+          ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "//": "ミッション1完了時にまだHUB01のインターコムに話しかけてない(通常ルート)",
         "topic": "JK_TALK_MISSION2",
         "condition": { "math": [ "n_jk_mission_status == 3" ] },
         "switch": true
@@ -62,7 +121,7 @@
         "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
         "topic": "JK_TALK_MISSION1",
         "condition": {
-          "//": "第一ミッション受託前",
+          "//": "第一ミッション開始前",
           "and": [ { "math": [ "n_jk_mission_status == 1" ] }, { "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ] } ]
         },
         "switch": true
@@ -83,6 +142,60 @@
         "text": "<color_yellow>[ミッション]</color>(相談について)",
         "topic": "JK_TALK_MISSION1_INQUIRE",
         "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_1" },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(HUB01はここだ)",
+        "topic": "JK_TALK_MISSION2_INQUIRE2",
+        "condition": {
+          "and": [
+            {
+              "or": [
+                { "u_at_om_location": "robofachq_surface_parking" },
+                { "u_at_om_location": "robofachq_surface_entrance" },
+                { "u_at_om_location": "robofachq_surface_car_entrance" },
+                { "u_at_om_location": "robofachq_meteorology0" },
+                { "u_at_om_location": "robofachq_meteorology1" },
+                { "u_at_om_location": "robofachq_meteorology2" },
+                { "u_at_om_location": "robofachq_meteorology3" },
+                { "u_at_om_location": "robofachq_surface_road0" },
+                { "u_at_om_location": "robofachq_surface_road1" },
+                { "u_at_om_location": "robofachq_surface_road2" },
+                { "u_at_om_location": "robofachq_surface_road3" },
+                { "u_at_om_location": "robofachq_surface_b0" },
+                { "u_at_om_location": "robofachq_surface_b1" },
+                { "u_at_om_location": "robofachq_surface_b2" },
+                { "u_at_om_location": "robofachq_surface_b3" }
+              ]
+            },
+            {
+              "or": [
+                { "npc_at_om_location": "robofachq_surface_parking" },
+                { "npc_at_om_location": "robofachq_surface_entrance" },
+                { "npc_at_om_location": "robofachq_surface_car_entrance" },
+                { "npc_at_om_location": "robofachq_meteorology0" },
+                { "npc_at_om_location": "robofachq_meteorology1" },
+                { "npc_at_om_location": "robofachq_meteorology2" },
+                { "npc_at_om_location": "robofachq_meteorology3" },
+                { "npc_at_om_location": "robofachq_surface_road0" },
+                { "npc_at_om_location": "robofachq_surface_road1" },
+                { "npc_at_om_location": "robofachq_surface_road2" },
+                { "npc_at_om_location": "robofachq_surface_road3" },
+                { "npc_at_om_location": "robofachq_surface_b0" },
+                { "npc_at_om_location": "robofachq_surface_b1" },
+                { "npc_at_om_location": "robofachq_surface_b2" },
+                { "npc_at_om_location": "robofachq_surface_b3" }
+              ]
+            },
+            { "u_has_mission": "JK_MISSION_FIND_LABO_2" }
+          ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談について)",
+        "topic": "JK_TALK_MISSION2_INQUIRE",
+        "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
         "switch": true
       },
       { "text": "(話をする)", "topic": "JK_TALK_ALLY_SOCIAL" },
@@ -110,9 +223,7 @@
         "text": "(出会うまでの話を聞く)",
         "topic": "JK_TALK_FRIEND_CONVERSATION",
         "condition": { "and": [ "at_safe_space", { "not": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } } ] },
-        "switch": true,
-        "//": "If the NPC doesn't have a BG survival story flagged trait, and didn't start the game as a static NPC, give them a BG story.",
-        "//2": "This is a stand-in for some kind of better system to add a random trait."
+        "switch": true
       },
       {
         "text": "(出会うまでの話を聞く)",
@@ -142,8 +253,7 @@
             { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
             { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
             { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission5" } ] } }
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] } }
           ]
         }
       },
@@ -155,6 +265,45 @@
             { "not": { "npc_has_effect": "asked_to_socialize" } },
             "at_safe_space",
             { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] }
+          ]
+        }
+      },
+      {
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_MISSION2_AFTER",
+        "condition": {
+          "and": [
+            { "not": { "npc_has_effect": "asked_to_socialize" } },
+            "at_safe_space",
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
+            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] }
+          ]
+        }
+      },
+      {
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_MISSION3_AFTER",
+        "condition": {
+          "and": [
+            { "not": { "npc_has_effect": "asked_to_socialize" } },
+            "at_safe_space",
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
+            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] }
+          ]
+        }
+      },
+      {
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_MISSION4_AFTER",
+        "condition": {
+          "and": [
+            { "not": { "npc_has_effect": "asked_to_socialize" } },
+            "at_safe_space",
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
+            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] } },
+            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] }
           ]
         }
       },

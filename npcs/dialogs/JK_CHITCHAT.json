@@ -120,28 +120,6 @@
         ]
       },
       {
-        "text": "(雑談を楽しむ)",
-        "topic": "TALK_DONE",
-        "switch": true,
-        "condition": {
-          "and": [
-            { "or": [ { "not": { "u_has_trait": "PSYCHOPATH" } }, { "not": { "u_has_trait": "NUMB" } } ] },
-            { "compare_string": [ "done", { "global_val": "u_jk_clear_mission1" } ] }
-          ]
-        },
-        "effect": [
-          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
-          {
-            "u_add_morale": "jk_morale_chat",
-            "bonus": 15,
-            "max_bonus": 30,
-            "duration": "120 minutes",
-            "decay_start": "60 minutes"
-          },
-          { "npc_add_effect": "asked_to_socialize", "duration": 7000 }
-        ]
-      },
-      {
         "text": "(雑談を聞く)",
         "topic": "TALK_DONE",
         "switch": true,

@@ -1,5 +1,96 @@
 [
   {
+    "id": "JK_TALK_MISSION_DISABLE",
+    "type": "talk_topic",
+    "dynamic_line": "&<color_red>注意</color>\n<color_yellow>JKコンパニオンMODのミッションをすべて無効にします。</color>\n<color_yellow>これは取り消しできません</color>\n\n<color_yellow>ミッションを無効にできるのはこのミッションを始める前だけです</color>",
+    "responses": [
+      { "text": "(やめる)", "topic": "TALK_DONE" },
+      {
+        "text": "(無効にする)",
+        "topic": "TALK_DONE",
+        "effect": [
+          { "math": [ "n_jk_mission_status = 0" ] },
+          { "u_message": "ミッションを無効化しました", "type": "bad", "popup": true }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION1",
+    "type": "talk_topic",
+    "dynamic_line": "あの、実は安全かもしれない場所を知っているんです。\nちょっと前にママがこのカードをくれました。もし何かすごく悪いことが起きたら、この研究所に行きなさいって。\nそこにママはいないけど、カードがあれば中に入れるし他の場所よりは安全だって。\nだって、今のこれはすごく悪いことですよね",
+    "responses": [
+      { "text": "(行ってみる)", "topic": "JK_TALK_MISSION1_ACCEPT" },
+      { "text": "<color_red>[ミッションを無効にする]</color>", "topic": "JK_TALK_MISSION_DISABLE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION1_ACCEPT",
+    "type": "talk_topic",
+    "dynamic_line": "ありがとうございます、センパイ！ カードはこれです。\nラボの場所を地図にメモするのでちょっと待ってください",
+    "responses": [
+      {
+        "text": "(カードのかわりに地図を渡して待つ)",
+        "topic": "TALK_DONE",
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_1" }, { "math": [ "n_jk_mission_status++" ] } ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION1_INQUIRE",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "はい。たぶんそのカードで他の研究所にも入れると思います",
+      "ママは研究所には最近の暴徒対策にセキュリティタレットがあるって言ってました",
+      "ゲストカードだから一回しか使えないんですって。一緒に入りましょうね",
+      "そうですね。他の研究所があればそこを目指してもいいと思います",
+      "こんなふうになったから、ちゃんと準備してから出発しましょう",
+      "研究所の位置は地図にメモしました。中に入って助けてもらえるか聞いてみましょう"
+    ],
+    "responses": [
+      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION1_INQUIRE" },
+      { "text": "(違う話)", "topic": "TALK_NONE" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION1_COMPLETE",
+    "type": "talk_topic",
+    "dynamic_line": "&研究所の内部は静まりかえっていて、乾いた空気の中にうっすらとカビのような刺激のある臭いが漂っています。\n\n「誰もいませんね……。あの～！  誰か、いませんか？」\n\n後輩の声は、答えるものの居ない建物の中をむなしく響きました。",
+    "responses": [ { "text": "(生存者はいないようだ)", "topic": "JK_TALK_MISSION1_COMPLETE1" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION1_COMPLETE1",
+    "type": "talk_topic",
+    "dynamic_line": "そうみたいですね……\n  どうしたんでしょう。安全だったはずなのに",
+    "responses": [
+      {
+        "text": "(調べてみよう)",
+        "topic": "TALK_DONE",
+        "//": "通常ルート:status=2",
+        "condition": { "math": [ "n_jk_mission_status == 2" ] },
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
+          "clear_mission",
+          { "u_add_var": "u_jk_clear_mission1", "value": "done" },
+          { "math": [ "n_jk_mission_status++" ] }
+        ],
+        "switch": true
+      },
+      {
+        "text": "(調べてみよう)",
+        "topic": "TALK_DONE",
+        "//": "HUB01先行ルート:status!=2: ステータス変更なし",
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
+          "clear_mission",
+          { "u_add_var": "u_jk_clear_mission1", "value": "done" }
+        ],
+        "switch": true
+      }
+    ]
+  },
+  {
     "id": "JK_TALK_MISSION1_AFTER",
     "type": "talk_topic",
     "dynamic_line": "センパイ、あの研究所で何があったんでしょう。\n  入り口はちゃんと閉まっていて、タレットもあったはずなのに、なのに中にゾンビが居るなんておかしいです。\n  もしかして、合衆国中がこんなふうになっているのかな。ママは大丈夫なのかな……",
@@ -38,6 +129,97 @@
           { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
           { "u_add_var": "u_jk_clear_mission1", "value": "talked" }
         ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、思ったんですが、ママの働いていたラボに行ってみませんか？\n  いえ、あそこは登録されたひと以外は家族でも入れてもらえないから、私も中に入ったことはないんです。\n  でもこんな時なんだし、手を貸してくれるかもしれません。\n  ママはたぶん……いないかもしれませんけど",
+    "responses": [ { "text": "(行ってみる)", "topic": "JK_TALK_MISSION2_ACCEPT" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_ACCEPT",
+    "type": "talk_topic",
+    "dynamic_line": "ありがとうございます、センパイ！  ラボの場所を地図にメモするのでちょっと待ってください",
+    "responses": [
+      {
+        "text": "(地図を渡して待つ)",
+        "topic": "TALK_DONE",
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_2" }, { "math": [ "n_jk_mission_status = 4" ] } ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_INQUIRE",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "ハブ01に行きましょう！  中に入れてくれそうなら、センパイは私の家族ってことで！\n  私は、妹かな？",
+      "ママはあそこの警備はホワイトハウスより厳重だって言ってました",
+      "ハブ01の人たちはほとんど家に帰らないんで研究をしてるんだって言ってました",
+      "研究が忙しいときはママもなかなか家に戻ってこなかったから、料理は私がするようになったんです\n  センパイにも作ってあげますね！",
+      "せめてママの無事だけでも知りたいんです",
+      "センパイの家族のことも心配ですよね……",
+      "距離があるから、歩きでは難しそうですね",
+      "ハブ01の位置はセンパイの地図にメモしました"
+    ],
+    "responses": [
+      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION2_INQUIRE" },
+      { "text": "(違う話)", "topic": "TALK_NONE" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_INQUIRE2",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "はい。でも、ここにも誰もいないみたいですね。中に閉じこもっているのかも。\n  センパイ、訪問者用の受付を探してみませんか？",
+      "センパイ、訪問者用の受付を探してみませんか？",
+      "受付でママ……アリーヤ博士について聞いてみてもらえませんか？",
+      "外に人は居ないみたいです。こんな時だから監視カメラとかインターフォン越しに対応しているのかもしれません"
+    ],
+    "responses": [ { "text": "(会話終了)", "topic": "TALK_DONE" } ]
+  },
+  {
+    "id": [ "TALK_ROBOFAC_INTERCOM_INTRO_1", "TALK_ROBOFAC_INTERCOM_INTRO_SILENCE" ],
+    "//": "MISSION2割り込み",
+    "type": "talk_topic",
+    "insert_before_standard_exits": true,
+    "responses": [
+      {
+        "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
+        "text": "(親族に会いに来た)",
+        "topic": "TALK_ROBOFAC_INTERCOM_INTRO_SILENCE",
+        "effect": [ { "u_add_var": "u_jk_mission2_talk_hub1", "value": "done" } ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_COMPLETE",
+    "type": "talk_topic",
+    "dynamic_line": "&後輩とHUB01のやりとりを話し合いました。\n\n「話も聞いてくれないなんてひどい人たちですよね！  でも、こんな時にでも生存者がいてよかったです」",
+    "responses": [
+      {
+        "text": "(信用を得る必要がある)",
+        "topic": "JK_TALK_MISSION2_COMPLETE1",
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
+          "clear_mission",
+          { "u_add_var": "u_jk_clear_mission2", "value": "done" },
+          { "math": [ "n_jk_mission_status++" ] }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_COMPLETE1",
+    "type": "talk_topic",
+    "dynamic_line": "&施設の中で閉鎖的な生活を送っており、自分たちの利益にならない人間には恐ろしく冷淡な人々ですが、外部の協力者が必要となる場面があることは理解しているようです。\n「そうですね、センパイ。いいように使われるのはちょっと悔しいけど、どうせなら一生懸命やりましょう！」",
+    "responses": [
+      {
+        "text": "(彼らに協力しよう)",
+        "topic": "TALK_DONE",
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_1" }, { "math": [ "n_jk_mission_status++" ] } ]
       }
     ]
   }
