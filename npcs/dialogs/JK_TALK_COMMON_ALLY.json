@@ -42,7 +42,7 @@
             "//": "ミッション2開始前",
             "math": [ "n_jk_mission_status <= 3" ],
             "yes": {
-              "//": "にHUB01のインターコムに話しかけ",
+              "//": "にHUB01のインターコムに話しかけ:先行ルート",
               "compare_string": [ { "u_val": "dialogue_intercom_u_discovered_robofac_intercom" }, "yes" ],
               "yes": "<color_yellow>[ミッション]</color>センパイ、HUB01のことなんですけど……",
               "no": {
@@ -72,7 +72,7 @@
                   "no": {
                     "//": "でなくミッション3まで終わってるなら",
                     "math": [ "n_jk_mission_status == 7" ],
-                    "yes": "<color_yellow>[ミッション]</color>センパイ、HUB01のことなんですけど……",
+                    "yes": "<color_yellow>[ミッション]</color>センパイ！ ママのこと分かったんですね！",
                     "no": "どうしたんですか？　センパイ"
                   }
                 }
@@ -86,10 +86,36 @@
     },
     "responses": [
       {
+        "//": "M3クリアの場合",
+        "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
+        "topic": "JK_TALK_MISSION4",
+        "condition": { "and": [ { "math": [ "n_jk_mission_status == 7" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_3" } ] },
+        "switch": true,
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_3", "success": true },
+          "clear_mission",
+          { "u_add_var": "jk_clear_mission3", "value": "done" },
+          { "math": [ "n_jk_mission_status++" ] }
+        ]
+      },
+      {
+        "//": "M2からスキップの場合",
+        "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
+        "topic": "JK_TALK_MISSION4",
+        "condition": { "and": [ { "math": [ "n_jk_mission_status == 7" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_2" } ] },
+        "switch": true,
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
+          "clear_mission",
+          { "u_add_var": "jk_clear_mission2", "value": "done" },
+          { "math": [ "n_jk_mission_status++" ] }
+        ]
+      },
+      {
         "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
-        "topic": "JK_TALK_MISSION3",
+        "topic": "JK_TALK_MISSION2_FAST",
         "condition": {
-          "//": "ミッション2開始前にHUB01のインターコムに話しかけ:先行ルートでミッション3開始",
+          "//": "ミッション2開始前にHUB01のインターコムに話しかけ:先行ルートでミッション2開始",
           "and": [
             { "not": { "math": [ "n_jk_mission_status == 0" ] } },
             { "math": [ "n_jk_mission_status <= 3" ] },
@@ -99,13 +125,13 @@
         "switch": true
       },
       {
-        "text": "<color_yellow>[ミッション]</color>(相談を聞く)",
+        "text": "<color_yellow>[ミッション]</color>(聞く耳を持たないようだ)",
         "topic": "JK_TALK_MISSION2_COMPLETE",
         "condition": {
-          "//": "ミッション2の間に完了条件(親族に会いに来た)を聞いた(通常ルート)",
+          "//": "ミッション2の間に完了条件(アリーヤ博士の娘が……)を聞いた(通常ルート)",
           "and": [
             { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
-            { "compare_string": [ { "u_val": "u_jk_mission2_talk_hub1" }, "done" ] }
+            { "compare_string": [ { "u_val": "jk_mission2_talk_hub1" }, "done" ] }
           ]
         },
         "switch": true
@@ -127,7 +153,7 @@
         "switch": true
       },
       {
-        "text": "<color_yellow>[ミッション]</color>(研究所に着いたけど……)",
+        "text": "<color_yellow>[ミッション]</color>(研究所に着いた……)",
         "topic": "JK_TALK_MISSION1_COMPLETE",
         "condition": {
           "and": [
@@ -142,6 +168,49 @@
         "text": "<color_yellow>[ミッション]</color>(相談について)",
         "topic": "JK_TALK_MISSION1_INQUIRE",
         "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_1" },
+        "switch": true
+      },
+      {
+        "//": "HUB01: 実地データ回収中",
+        "text": "<color_yellow>[ミッション]</color>(実地データの回収について話す)",
+        "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC1",
+        "condition": { "and": [ { "u_has_mission": "JK_MISSION_FIND_LABO_3" }, { "u_has_mission": "MISSION_ROBOFAC_INTERCOM_1" } ] }
+      },
+      {
+        "//": "HUB01: 無言の帰還中",
+        "text": "<color_yellow>[ミッション]</color>(無言の帰還について話す)",
+        "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC2",
+        "condition": { "and": [ { "u_has_mission": "JK_MISSION_FIND_LABO_3" }, { "u_has_mission": "MISSION_ROBOFAC_INTERCOM_2" } ] }
+      },
+      {
+        "//": "HUB01: 鉄塊狩り中",
+        "text": "<color_yellow>[ミッション]</color>(鉄塊狩りについて話す)",
+        "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC3",
+        "condition": { "and": [ { "u_has_mission": "JK_MISSION_FIND_LABO_3" }, { "u_has_mission": "MISSION_ROBOFAC_INTERCOM_ROBOT_SM_1" } ] }
+      },
+      {
+        "//": "HUB01: 輝かしい回収",
+        "text": "<color_yellow>[ミッション]</color>(輝かしい捜索任務について話す)",
+        "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC4",
+        "condition": { "and": [ { "u_has_mission": "JK_MISSION_FIND_LABO_3" }, { "u_has_mission": "MISSION_ROBOFAC_INTERCOM_3" } ] }
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(相談について)",
+        "topic": "JK_TALK_MISSION3_INQUIRE",
+        "//": "M3中で、実地データ回収を承けたら止める。",
+        "condition": {
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_3" },
+            {
+              "or": [
+                { "not": { "u_has_mission": "MISSION_ROBOFAC_INTERCOM_1" } },
+                {
+                  "not": { "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_1" }, "yes" ] }
+                }
+              ]
+            }
+          ]
+        },
         "switch": true
       },
       {
@@ -198,7 +267,7 @@
         "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
         "switch": true
       },
-      { "text": "(話をする)", "topic": "JK_TALK_ALLY_SOCIAL" },
+      { "text": "(話をする)", "topic": "JK_TALK_ALLY_SOCIAL", "default": true },
       { "text": "(指示を出す)", "topic": "JK_TALK_ALLY_ORDERS" },
       { "text": "(指定の場所へ移動させる)", "topic": "JK_TALK_GOTO_LOCATION", "effect": "goto_location" },
       { "text": "([行動規制] 行動ルールを設定する)", "topic": "TALK_DONE", "effect": "npc_rules_menu" },
@@ -220,92 +289,75 @@
     },
     "responses": [
       {
-        "text": "(出会うまでの話を聞く)",
-        "topic": "JK_TALK_FRIEND_CONVERSATION",
-        "condition": { "and": [ "at_safe_space", { "not": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } } ] },
-        "switch": true
-      },
-      {
-        "text": "(出会うまでの話を聞く)",
-        "topic": "JK_TALK_FRIEND_CONVERSATION_1",
-        "condition": { "and": [ "at_safe_space", { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } ] },
-        "switch": true
-      },
-      {
-        "text": "(出会うまでの話を聞く)",
-        "topic": "JK_TALK_CONVERSATION_DANGER",
-        "condition": { "not": "at_safe_space" },
-        "switch": true
-      },
-      {
-        "text": "(出会うまでの話を聞く)",
-        "topic": "JK_TALK_CONVERSATION_RADIO",
-        "condition": { "not": "is_by_radio" },
-        "switch": true
-      },
-      {
-        "text": "(気分転換に雑談に誘う)",
-        "topic": "JK_TALK_FRIEND_CHAT",
-        "condition": {
-          "and": [
-            { "not": { "npc_has_effect": "asked_to_socialize" } },
-            "at_safe_space",
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] } }
-          ]
-        }
-      },
-      {
         "text": "(気分転換に雑談に誘う)",
         "topic": "JK_TALK_MISSION1_AFTER",
+        "switch": true,
         "condition": {
           "and": [
             { "not": { "npc_has_effect": "asked_to_socialize" } },
             "at_safe_space",
-            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] }
+            { "compare_string": [ "done", { "u_val": "jk_clear_mission1" } ] }
           ]
         }
       },
       {
         "text": "(気分転換に雑談に誘う)",
         "topic": "JK_TALK_MISSION2_AFTER",
+        "switch": true,
         "condition": {
           "and": [
             { "not": { "npc_has_effect": "asked_to_socialize" } },
             "at_safe_space",
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
-            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] }
+            { "compare_string": [ "done", { "u_val": "jk_clear_mission2" } ] }
           ]
         }
       },
       {
         "text": "(気分転換に雑談に誘う)",
         "topic": "JK_TALK_MISSION3_AFTER",
+        "switch": true,
         "condition": {
           "and": [
             { "not": { "npc_has_effect": "asked_to_socialize" } },
             "at_safe_space",
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
-            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] }
+            { "compare_string": [ "done", { "u_val": "jk_clear_mission3" } ] }
           ]
         }
       },
       {
         "text": "(気分転換に雑談に誘う)",
         "topic": "JK_TALK_MISSION4_AFTER",
+        "switch": true,
         "condition": {
           "and": [
             { "not": { "npc_has_effect": "asked_to_socialize" } },
             "at_safe_space",
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission1" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission2" } ] } },
-            { "not": { "compare_string": [ "done", { "u_val": "u_jk_clear_mission3" } ] } },
-            { "compare_string": [ "done", { "u_val": "u_jk_clear_mission4" } ] }
+            { "compare_string": [ "done", { "u_val": "jk_clear_mission4" } ] }
           ]
         }
+      },
+      {
+        "//": "デフォルトチャット",
+        "text": "(気分転換に雑談に誘う)",
+        "topic": "JK_TALK_FRIEND_CHAT",
+        "switch": true,
+        "default": true,
+        "condition": { "and": [ { "not": { "npc_has_effect": "asked_to_socialize" } }, "at_safe_space" ] }
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_FRIEND_CONVERSATION",
+        "condition": { "and": [ "at_safe_space", { "not": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } } ] }
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_FRIEND_CONVERSATION_1",
+        "condition": { "and": [ "at_safe_space", { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] } ] }
+      },
+      {
+        "text": "(出会うまでの話を聞く)",
+        "topic": "JK_TALK_CONVERSATION_DANGER",
+        "condition": { "not": "at_safe_space" }
       },
       { "text": "(戻る)", "topic": "TALK_NONE" },
       { "text": "(会話終了)", "topic": "TALK_DONE" }
@@ -328,7 +380,7 @@
       },
       {
         "text": "(問題ない)",
-        "topic": "JK_TALK_CONVERSATION_1",
+        "topic": "JK_TALK_FRIEND_CONVERSATION_1",
         "switch": true,
         "condition": { "compare_string": [ "done", { "npc_val": "n_jk_told_backstory" } ] }
       },

@@ -18,7 +18,7 @@
   {
     "id": "JK_TALK_MISSION1",
     "type": "talk_topic",
-    "dynamic_line": "あの、実は安全かもしれない場所を知っているんです。\nちょっと前にママがこのカードをくれました。もし何かすごく悪いことが起きたら、この研究所に行きなさいって。\nそこにママはいないけど、カードがあれば中に入れるし他の場所よりは安全だって。\nだって、今のこれはすごく悪いことですよね",
+    "dynamic_line": "あの、実は安全かもしれない場所を知っているんです。言い出すのが遅くなってすみません。\nちょっと前にママがこのカードをくれたんです。もし何かすごく悪いことが起きたら、ママの働いている研究所のどれかに行きなさいって。\nそこにママはいないけど、カードがあれば中に入れるし他の場所よりは安全だって。\nだって、今のこれはすごく悪いことですよね",
     "responses": [
       { "text": "(行ってみる)", "topic": "JK_TALK_MISSION1_ACCEPT" },
       { "text": "<color_red>[ミッションを無効にする]</color>", "topic": "JK_TALK_MISSION_DISABLE" }
@@ -72,7 +72,7 @@
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
           "clear_mission",
-          { "u_add_var": "u_jk_clear_mission1", "value": "done" },
+          { "u_add_var": "jk_clear_mission1", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] }
         ],
         "switch": true
@@ -84,7 +84,7 @@
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
           "clear_mission",
-          { "u_add_var": "u_jk_clear_mission1", "value": "done" }
+          { "u_add_var": "jk_clear_mission1", "value": "done" }
         ],
         "switch": true
       }
@@ -116,7 +116,7 @@
             "decay_start": "60 minutes"
           },
           { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
-          { "u_add_var": "u_jk_clear_mission1", "value": "talked" }
+          { "u_add_var": "jk_clear_mission1", "value": "talked" }
         ]
       },
       {
@@ -127,7 +127,7 @@
         "effect": [
           { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
           { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
-          { "u_add_var": "u_jk_clear_mission1", "value": "talked" }
+          { "u_add_var": "jk_clear_mission1", "value": "talked" }
         ]
       }
     ]
@@ -135,7 +135,7 @@
   {
     "id": "JK_TALK_MISSION2",
     "type": "talk_topic",
-    "dynamic_line": "センパイ、思ったんですが、ママの働いていたラボに行ってみませんか？\n  いえ、あそこは登録されたひと以外は家族でも入れてもらえないから、私も中に入ったことはないんです。\n  でもこんな時なんだし、手を貸してくれるかもしれません。\n  ママはたぶん……いないかもしれませんけど",
+    "dynamic_line": "センパイ、思ったんですが、ママの働いていたところに行ってみませんか？\n  前にママはDARPAの新しい研究所に異動したって話したじゃないですか。ママはそこは登録されたひと以外は家族でも入れないほど厳重で、ホワイトハウスよりも警備が厳しいなんて話をしていました。\n  そこにならきっと無事な人が居るはずだし、こんな時なんだから手を貸してくれるかもしれません。\n  ママはもしかしたら……今はいないかもしれませんけど、とにかくHUB01にアリーヤ博士を訪ねてみませんか？",
     "responses": [ { "text": "(行ってみる)", "topic": "JK_TALK_MISSION2_ACCEPT" } ]
   },
   {
@@ -151,10 +151,23 @@
     ]
   },
   {
+    "//": "ミッション2の手動開始:先行ルート:これでstatus=4になるのでここまでM1を開始していなければM1消滅",
+    "id": "JK_TALK_MISSION2_FAST",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、前にママはDARPAが作った新しい研究所に異動したって話したじゃないですか。HUB01ってその異動した施設です。\n  ママはそこは登録されたひと以外は家族でも入れないほど厳重で、ホワイトハウスよりも警備が厳しいなんて話をしていましたけど、何か聞いていたのと違う感じですね。\n  はい、私も中に入ったことはないんです。HUB01は登録されたひと以外は家族でも入れてもらえないから……\n  でもこんな時なんだし、手を貸してくれたっていいのに。\n  センパイ、アリーヤ博士を呼び出してもらえませんか。ママがいたら、きっと中に入れてくれると思うんです",
+    "responses": [
+      {
+        "text": "(わかった)",
+        "topic": "TALK_DONE",
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_2" }, { "math": [ "n_jk_mission_status = 4" ] } ]
+      }
+    ]
+  },
+  {
     "id": "JK_TALK_MISSION2_INQUIRE",
     "type": "talk_topic",
     "dynamic_line": [
-      "ハブ01に行きましょう！  中に入れてくれそうなら、センパイは私の家族ってことで！\n  私は、妹かな？",
+      "ハブ01に行きましょう！  中に入れてくれそうなら、センパイは私の家族ってことで！\n  私は、妹かな？  へへ",
       "ママはあそこの警備はホワイトハウスより厳重だって言ってました",
       "ハブ01の人たちはほとんど家に帰らないんで研究をしてるんだって言ってました",
       "研究が忙しいときはママもなかなか家に戻ってこなかったから、料理は私がするようになったんです\n  センパイにも作ってあげますね！",
@@ -176,28 +189,187 @@
       "はい。でも、ここにも誰もいないみたいですね。中に閉じこもっているのかも。\n  センパイ、訪問者用の受付を探してみませんか？",
       "センパイ、訪問者用の受付を探してみませんか？",
       "受付でママ……アリーヤ博士について聞いてみてもらえませんか？",
-      "外に人は居ないみたいです。こんな時だから監視カメラとかインターフォン越しに対応しているのかもしれません"
+      "外に人は居ないみたいです。こんな時だから監視カメラとかインターフォン越しに対応しているのかも"
     ],
-    "responses": [ { "text": "(会話終了)", "topic": "TALK_DONE" } ]
+    "responses": [
+      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION2_INQUIRE2" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
   },
   {
     "id": [ "TALK_ROBOFAC_INTERCOM_INTRO_1", "TALK_ROBOFAC_INTERCOM_INTRO_SILENCE" ],
-    "//": "MISSION2割り込み",
+    "//": "MISSION2割り込み:最初",
     "type": "talk_topic",
     "insert_before_standard_exits": true,
     "responses": [
       {
         "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
-        "text": "(親族に会いに来た)",
+        "text": "(アリーヤ博士に娘が会いに来たと伝えて欲しい)",
         "topic": "TALK_ROBOFAC_INTERCOM_INTRO_SILENCE",
-        "effect": [ { "u_add_var": "u_jk_mission2_talk_hub1", "value": "done" } ]
+        "effect": [ { "u_add_var": "jk_mission2_talk_hub1", "value": "done" } ]
+      }
+    ]
+  },
+  {
+    "id": [ "MISSION_ROBOFAC_INTERCOM_1_INQUIRE" ],
+    "//": "実地データ回収中の割り込み:M2",
+    "type": "talk_topic",
+    "insert_before_standard_exits": true,
+    "responses": [
+      {
+        "condition": {
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
+            { "not": { "compare_string": [ { "u_val": "jk_mission2_talk_hub1" }, "done" ] } }
+          ]
+        },
+        "text": "(アリーヤ博士に娘が会いに来たと伝えて欲しい)",
+        "topic": "TALK_ROBOFAC_INTERCOM",
+        "effect": [ { "u_add_var": "jk_mission2_talk_hub1", "value": "done" } ]
+      }
+    ]
+  },
+  {
+    "id": [ "TALK_ROBOFAC_INTERCOM_SERVICES_FIRST", "TALK_ROBOFAC_INTERCOM_SERVICES" ],
+    "//": "HUB01通常メッセージの割り込み",
+    "type": "talk_topic",
+    "insert_before_standard_exits": true,
+    "responses": [
+      {
+        "//": "M2の割り込み。M3クリア条件付で初めてアリーヤ博士について尋ねた",
+        "condition": {
+          "//": "鉄塊狩りと無言の帰還を成功 or 輝かしい回収を成功",
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
+            { "not": { "compare_string": [ { "u_val": "jk_mission2_talk_hub1" }, "done" ] } },
+            {
+              "or": [
+                {
+                  "and": [
+                    { "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_2" }, "yes" ] },
+                    {
+                      "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_robot_sm_1" }, "yes" ]
+                    }
+                  ]
+                },
+                { "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_3" }, "yes" ] }
+              ]
+            }
+          ]
+        },
+        "text": "(アリーヤ博士に娘が会いに来たと伝えて欲しい)",
+        "topic": "JK_TALK_ROBOFAC_SKIP_M3",
+        "effect": [ { "u_add_var": "jk_mission2_talk_hub1", "value": "done" } ],
+        "switch": true
+      },
+      {
+        "//": "M3の割り込み:クリア条件を満たした",
+        "condition": {
+          "//": "鉄塊狩りと無言の帰還を成功 or 輝かしい回収を成功",
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_3" },
+            {
+              "or": [
+                {
+                  "and": [
+                    { "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_2" }, "yes" ] },
+                    {
+                      "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_robot_sm_1" }, "yes" ]
+                    }
+                  ]
+                },
+                { "compare_string": [ { "u_val": "dialogue_intercom_completed_robofac_intercom_3" }, "yes" ] }
+              ]
+            }
+          ]
+        },
+        "text": "(そろそろアリーヤ博士に取り次いでもらえないか)",
+        "topic": "JK_TALK_MISSION3_COMPLETE",
+        "switch": true
+      },
+      {
+        "//": "M2の割り込み。通常",
+        "condition": {
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_2" },
+            { "not": { "compare_string": [ { "u_val": "jk_mission2_talk_hub1" }, "done" ] } }
+          ]
+        },
+        "text": "(アリーヤ博士に娘が会いに来たと伝えて欲しい)",
+        "topic": "JK_TALK_ROBOFAC_IGNORE",
+        "effect": [ { "u_add_var": "jk_mission2_talk_hub1", "value": "done" } ],
+        "switch": true
+      }
+    ]
+  },
+  {
+    "//": "M3クリア",
+    "id": "JK_TALK_MISSION3_COMPLETE",
+    "type": "talk_topic",
+    "dynamic_line": "&  通信装置は沈黙し、しばらくするとくぐもった音が聞こえてきました。向こうで議論、あるいは口論のような気配が続きます。何を言っているのかは聞き取れません。諦めて足を返す直前、通信装置から声がしました。「待ってくれ、傭兵」\n\n  通信装置の向こうでまたくぐもった音が聞こえ、静かになったかと思うと、再びしゃべり出しました。\n\n「傭兵、まさか、前に言っていたことは本当なのか？  だがアリーヤ博士はここには居ないんだ。C-Dayの午前中にヘリでどこかに向かったきりだ。私が聞かされているのは、同行者と護衛ともども『消えた』ということだ。全員行方不明、死亡したとして捜索隊は派遣されないことが決まった。博士はここでも非常に重要な人物だ。そんなことがあるのか？  君はずいぶんと腕が立つ。その気があるなら手掛かりを探してみてくれないか。何か見つけたら、あるいは何かわかったら持ち帰ってきて欲しい。念のために言っておくが、これは個人的な頼みだ。雇用契約とは関係ないし、我々としての報酬も出せない」",
+    "responses": [ { "text": "(ちょっと待って……)", "topic": "JK_TALK_ROBOFAC_M4_READY" } ]
+  },
+  {
+    "//": "条件達成でM2クリア、(M3スキップ)",
+    "id": "JK_TALK_ROBOFAC_SKIP_M3",
+    "type": "talk_topic",
+    "dynamic_line": "&通信装置は沈黙し、しばらくするとくぐもった音が聞こえてきました。向こうで議論、あるいは口論のような気配が続きます。何を言っているのかは聞き取れません。諦めて足を返す直前、通信装置から声がしました。「待ってくれ、傭兵」\n\n  通信装置の向こうでまたくぐもった音が聞こえ、静かになったかと思うと、再びしゃべり出しました。\n\n「傭兵、その名をどこで知ったのかを尋ねる時間はないが、アリーヤ博士はここには居ない。C-Dayの午前中にヘリでどこかに向かったきりだ。私が聞かされているのは、同行者と護衛ともども『消えた』ということだ。全員行方不明、死亡したとして捜索隊は派遣されないことが決まった。博士はここでも非常に重要な人物だ。そんなことがあるのか？  君はずいぶんと腕が立つ。その気があるなら手掛かりを探してみてくれないか。何か見つけたら、あるいは何かわかったら持ち帰ってきて欲しい。念のために言っておくが、これは個人的な頼みだ。雇用契約とは関係ないし、我々としての報酬も出せない」",
+    "responses": [ { "text": "(ちょっと待って……)", "topic": "JK_TALK_ROBOFAC_M4_READY" } ]
+  },
+  {
+    "//": "M4受注前提メッセージ",
+    "id": "JK_TALK_ROBOFAC_M4_READY",
+    "type": "talk_topic",
+    "dynamic_line": "&「博士が行方を絶った座標を伝える。そこに何があるのかは全くわからない。危険かもしれない。それでも、頼む」\n  座標を記録していると通信機の向こうからまた音が聞こえ、LEDが点滅すると同じ声が言いました。\n\n「……ここにそのような人間は居ない」",
+    "responses": [
+      {
+        "text": "(そろそろ行かないと)",
+        "topic": "TALK_DONE",
+        "//": "M4開始前提処理",
+        "effect": [ { "math": [ "n_jk_mission_status=7" ] } ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_ROBOFAC_IGNORE",
+    "type": "talk_topic",
+    "dynamic_line": "&「ここにそのような人間はいない」\n-ブツッ-\n\n  回答には一瞬の間もありませんでした",
+    "responses": [
+      {
+        "text": "(もしもし？)",
+        "topic": "TALK_DONE",
+        "effect": [ { "u_add_var": "jk_mission2_talk_hub1", "value": "done" } ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION4",
+    "type": "talk_topic",
+    "dynamic_line": "&  後輩にHUB01から聞いたアリーヤ博士の行方について伝えました。\n「消える……なんてこと、ないですよね。事故でもあったんでしょうか。ううん、センパイに聞いたって分かるわけありませんよね。ごめんなさい、ちょっと、びっくりして……。覚悟してたつもりだったのに、HUB01がきれいに残っていたから、もしかして、とも思っちゃってました。ママ達、どうしてHUB01から出て行ったんだろう。ううん、きっと大事な用事だったんですよね」\n  後輩は上を向いて目を閉じたあと、もういないんだってことは分かりました。と笑いました",
+    "responses": [ { "text": "(声を掛ける)", "topic": "JK_TALK_MISSION4_1" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_1",
+    "type": "talk_topic",
+    "dynamic_line": "&「ありがとうございます。センパイ。もし付き合ってもらえるなら、そこに行ってみたいと思います。いいえ、何か見つかるなんて思ってません。でも、何もないってことを見ておきたいんです。そうしないと、ずっともしかしたらって考えちゃうから」",
+    "responses": [ { "text": "(行ってみよう)", "topic": "JK_TALK_MISSION4_2" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_2",
+    "type": "talk_topic",
+    "dynamic_line": "「これで本当に私にはセンパイしかいなくなっちゃいましたね。へへ」",
+    "responses": [
+      {
+        "text": "(地図に印をつける)",
+        "topic": "TALK_DONE",
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_4" }, { "math": [ "n_jk_mission_status++" ] } ]
       }
     ]
   },
   {
     "id": "JK_TALK_MISSION2_COMPLETE",
     "type": "talk_topic",
-    "dynamic_line": "&後輩とHUB01のやりとりを話し合いました。\n\n「話も聞いてくれないなんてひどい人たちですよね！  でも、こんな時にでも生存者がいてよかったです」",
+    "dynamic_line": "&  後輩とHUB01のやりとりを話し合いました。\n\n「生存者が居たのはよかったけど、話も聞いてくれないなんてひどい！  取り次いでくれれば私達のことわかってもらえるはずなのに！」",
     "responses": [
       {
         "text": "(信用を得る必要がある)",
@@ -205,7 +377,7 @@
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
           "clear_mission",
-          { "u_add_var": "u_jk_clear_mission2", "value": "done" },
+          { "u_add_var": "jk_clear_mission2", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] }
         ]
       }
@@ -214,13 +386,106 @@
   {
     "id": "JK_TALK_MISSION2_COMPLETE1",
     "type": "talk_topic",
-    "dynamic_line": "&施設の中で閉鎖的な生活を送っており、自分たちの利益にならない人間には恐ろしく冷淡な人々ですが、外部の協力者が必要となる場面があることは理解しているようです。\n「そうですね、センパイ。いいように使われるのはちょっと悔しいけど、どうせなら一生懸命やりましょう！」",
+    "dynamic_line": "&  HUB01の人間は施設の中で閉鎖的な生活を送っており、自分たちの利益にならない人間には恐ろしく冷淡ですが、外部の協力者が必要となる場面があることは理解しているようです。\n\n「そうですね、センパイ。いいように使われるのはちょっと悔しいけど、どうせなら一生懸命やりましょう！」",
     "responses": [
       {
         "text": "(彼らに協力しよう)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_1" }, { "math": [ "n_jk_mission_status++" ] } ]
+        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_3" }, { "math": [ "n_jk_mission_status++" ] } ]
       }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION3_INQUIRE",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "さあ、張り切っていきましょう！",
+      "はい、私はいつでも大丈夫です。どんな契約を承けるのかはセンパイにお任せします",
+      "危ないこともあるかもしれませんから、ちゃんと準備していきましょうね、センパイ",
+      "はい、HUB01と契約して仕事を承けましょう",
+      "センパイ、私のためにこんなにしてくれてありがとうございます"
+    ],
+    "responses": [
+      { "text": "(他に何かわかることは？)", "topic": "JK_TALK_MISSION3_INQUIRE" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "//": "実地データ回収時",
+    "id": "JK_TALK_MISSION3_INQUIRE_ROBOFAC1",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "センパイ、こんな時になんなんでしょうね、あの人達",
+      "センパイ、戦闘ロボットなんて本当だと思いますか？　私たち、からかわれてるのかも。\n  いえ、こうなったら何が起きてもおかしくありませんよね",
+      "センパイ、研究員の人を早く見つけてあげなきゃですね",
+      "戦闘ロボットって、ターミネーターみたいなやつかな？",
+      "ゾンビが居るんだからターミネーターが居たっておかしくないですよねないですよね、センパイ？",
+      "センパイ、ターミネーターみたいな戦闘ロボットなら、ジョン・コナーみたいに爆弾を用意した方がいいかもしれません",
+      "センパイ、敵対行動をするってことは、ロボットは攻撃してくるってことですよね。ロボット三原則はどうしちゃったんでしょう？",
+      "重装甲で機敏な戦闘プログラム……こんなターミネーターみたいなロボットで、ゾンビと戦うつもりだったんでしょうか"
+    ],
+    "responses": [
+      { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC1" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "//": "無言の帰還中",
+    "id": "JK_TALK_MISSION3_INQUIRE_ROBOFAC2",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "AI研究チームの責任者！  ううん、もうDARPAの職員じゃないから、ママじゃない……",
+      "救助部隊って、軍隊ですよね。センパイ、軍隊が全滅するなんて何があったんでしょう",
+      "センパイ、戦闘用の軽装外骨格って、パワーアーマーのことでしょうか。暴徒鎮圧に出動したってニュースで見たんですけど、ピストルで撃たれたのに着ていた兵士にはアザひとつできなかったんですって！",
+      "軍隊が居たなら銃とか銃弾が手に入るかもしれませんよね。でも、危険だし、どうしましょう、センパイ",
+      "軍用車とか、予備の部品もあるかも。でも、軍用装備を着たゾンビとまともに戦うのは危険ですよね、センパイ",
+      "センパイ、兵士でも、ゾンビなら撃ってこないはずですよね",
+      "センパイ、どうします？  戦うか、見つけて素早く逃げるか"
+    ],
+    "responses": [
+      { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC2" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "//": "鉄塊狩り中",
+    "id": "JK_TALK_MISSION3_INQUIRE_ROBOFAC3",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "トリファセット？？  て、なんでしょう、センパイ。三面？　三層？",
+      "なんだかHUBの人たちもよくわからないみたいなのに、なんで説明書があるんでしょう？",
+      "センパイ、もらった銃は撃ってみました？",
+      "センパイ、もらった書類みてみました？",
+      "どうせUPSくれるなら充電しておいてくれたらいいのにって思いません？  センパイ",
+      "トリファセットって、ロボットなんですよね。こんなの見たことないです。センパイはどうです？",
+      "このロボットって武装しているんですよね。歩いて近づくのは危険かもしれませんよ、センパイ",
+      "hm12で撃って、止まったら電源を切る。電源って……？",
+      "センパイ、撃つのとスイッチを切るので役割分担するって言うのはどうです？"
+    ],
+    "responses": [
+      { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC3" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "//": "輝かしい回収",
+    "id": "JK_TALK_MISSION3_INQUIRE_ROBOFAC4",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "センパイ、これはなんだかとても危険そうです……",
+      "街に行くなら沢山準備していかないとですね、センパイ",
+      "センパイは、フォトニック回路って見たことありますか？  向こうで見つけてこれってわかるのかな？",
+      "センパイ、HUBの装備の調子はどうですか？",
+      "毒ガスってイヤな感じですね。予備のフィルターも用意しませんか？",
+      "ドローンの妨害ってどういうことでしょう？  空を飛べるなら、ゾンビに手出しはできませんよね？",
+      "ポータル嵐、何……？  センパイ、知ってますか？",
+      "センパイ、準備は大丈夫ですか？  沢山のゾンビ、地下室、毒ガスだそうです",
+      "あっ、そうですね。一度偵察に行くのもいいかもしれませんね。弾、足りるかな",
+      "熱源、ゾンビ、地震、毒ガス……センパイ、危険過ぎたららいつでも止めましょうね"
+    ],
+    "responses": [
+      { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC4" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
     ]
   }
 ]

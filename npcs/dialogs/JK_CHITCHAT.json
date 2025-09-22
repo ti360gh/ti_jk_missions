@@ -113,10 +113,10 @@
             "u_add_morale": "jk_morale_chat",
             "bonus": 15,
             "max_bonus": 30,
-            "duration": "120 minutes",
+            "duration": "180 minutes",
             "decay_start": "60 minutes"
           },
-          { "npc_add_effect": "asked_to_socialize", "duration": 7000 }
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" }
         ]
       },
       {
@@ -130,10 +130,10 @@
             "u_add_morale": "jk_morale_chat_nope",
             "bonus": -5,
             "max_bonus": -20,
-            "duration": "120 minutes",
+            "duration": "180 minutes",
             "decay_start": "60 minutes"
           },
-          { "npc_add_effect": "asked_to_socialize", "duration": 7000 }
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" }
         ]
       }
     ]

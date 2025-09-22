@@ -111,7 +111,7 @@
     "skills": [
       { "skill": "ALL", "level": { "constant": 0 } },
       { "skill": "speech", "bonus": 3 },
-      { "skill": "computer", "bonus": 2 },
+      { "skill": "computer", "bonus": 4 },
       { "skill": "survival", "bonus": 1 },
       { "skill": "chemistry", "bonus": 2 },
       { "skill": "driving", "bonus": 2 },
