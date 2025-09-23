@@ -61,6 +61,7 @@
     "rooted": true,
     "refuel_fires": true,
     "auto_needs": true,
+    "interruptable_with_kb": false,
     "ignored_distractions": [ "talked_to" ]
   },
   {
@@ -72,6 +73,7 @@
     "rooted": true,
     "refuel_fires": true,
     "auto_needs": true,
+    "interruptable_with_kb": false,
     "ignored_distractions": [ "talked_to" ]
   }
 ]

@@ -71,7 +71,7 @@
                   "yes": "どうしたんですか？　センパイ",
                   "no": {
                     "//": "でなくミッション3まで終わってるなら",
-                    "math": [ "n_jk_mission_status == 7" ],
+                    "compare_string": [ { "u_val": "jk_m4_ready" }, "yes" ],
                     "yes": "<color_yellow>[ミッション]</color>センパイ！ ママのこと分かったんですね！",
                     "no": "どうしたんですか？　センパイ"
                   }
@@ -107,13 +107,15 @@
         "//": "M3クリアの場合",
         "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
         "topic": "JK_TALK_MISSION4",
-        "condition": { "and": [ { "math": [ "n_jk_mission_status == 7" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_3" } ] },
+        "condition": {
+          "and": [ { "compare_string": [ { "u_val": "jk_m4_ready" }, "yes" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_3" } ]
+        },
         "switch": true,
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_3", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission3", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] },
+          { "math": [ "n_jk_mission_status = 8" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>HUB01の信用を得るには</color>」を完了しました",
             "popup": true
@@ -124,13 +126,15 @@
         "//": "M2からスキップの場合",
         "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
         "topic": "JK_TALK_MISSION4",
-        "condition": { "and": [ { "math": [ "n_jk_mission_status == 7" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_2" } ] },
+        "condition": {
+          "and": [ { "compare_string": [ { "u_val": "jk_m4_ready" }, "yes" ] }, { "u_has_mission": "JK_MISSION_FIND_LABO_2" } ]
+        },
         "switch": true,
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission2", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] },
+          { "math": [ "n_jk_mission_status = 8" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を完了しました",
             "popup": true
