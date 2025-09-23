@@ -37,7 +37,7 @@
         "text": "(カードのかわりに地図を渡して待つ)",
         "topic": "TALK_DONE",
         "effect": [
-          { "add_mission": "JK_MISSION_FIND_LABO_1" },
+          { "assign_mission": "JK_MISSION_FIND_LABO_1" },
           { "math": [ "n_jk_mission_status++" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>科学研究所を目指そう</color>」を開始しました",
@@ -82,7 +82,6 @@
         "condition": { "math": [ "n_jk_mission_status == 2" ] },
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission1", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] },
           {
@@ -98,7 +97,6 @@
         "//": "HUB01先行ルート:status!=2: ステータス変更なし",
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission1", "value": "done" },
           {
             "u_message": "ミッション: 「<color_light_blue>科学研究所を目指そう</color>」を完了しました",
@@ -279,7 +277,7 @@
         "text": "(地図を渡して待つ)",
         "topic": "TALK_DONE",
         "effect": [
-          { "add_mission": "JK_MISSION_FIND_LABO_2" },
+          { "assign_mission": "JK_MISSION_FIND_LABO_2" },
           { "math": [ "n_jk_mission_status = 4" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を開始しました",
@@ -299,7 +297,7 @@
         "text": "(わかった)",
         "topic": "TALK_DONE",
         "effect": [
-          { "add_mission": "JK_MISSION_FIND_LABO_2" },
+          { "assign_mission": "JK_MISSION_FIND_LABO_2" },
           { "math": [ "n_jk_mission_status = 4" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を開始しました",
@@ -509,7 +507,7 @@
         "text": "(地図に印をつける)",
         "topic": "TALK_DONE",
         "effect": [
-          { "add_mission": "JK_MISSION_FIND_LABO_4" },
+          { "assign_mission": "JK_MISSION_FIND_LABO_4" },
           { "u_add_var": "jk_m4_ready", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] },
           {
@@ -536,7 +534,6 @@
         "topic": "TALK_DONE",
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_4", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission4", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] },
           {
@@ -558,7 +555,6 @@
         "topic": "JK_TALK_MISSION2_COMPLETE1",
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission2", "value": "done" },
           { "math": [ "n_jk_mission_status++" ] },
           {
@@ -578,7 +574,7 @@
         "text": "(彼らに協力しよう)",
         "topic": "TALK_DONE",
         "effect": [
-          { "add_mission": "JK_MISSION_FIND_LABO_3" },
+          { "assign_mission": "JK_MISSION_FIND_LABO_3" },
           { "math": [ "n_jk_mission_status++" ] },
           {
             "u_message": "ミッション: 「<color_light_blue>HUB01の信用を得るには</color>」を開始しました",

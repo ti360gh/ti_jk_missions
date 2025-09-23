@@ -22,8 +22,6 @@
     "talk_stole_item": "JK_TALK_STOLE_ITEM",
     "talk_wake_up": "JK_TALK_WAKE_UP",
     "talk_friend_guard": "JK_TALK_FRIEND_GUARD",
-    "talk_mission_inquire": "JK_TALK_FRIEND",
-    "talk_mission_describe_urgent": "JK_TALK_FRIEND",
     "<acknowledged>": "<jk_acknowledged>",
     "<hungry>": "<jk_hangry>",
     "<camp_food_thanks>": "<jk_camp_food_thanks>",

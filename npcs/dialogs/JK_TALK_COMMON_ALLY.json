@@ -113,7 +113,6 @@
         "switch": true,
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_3", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission3", "value": "done" },
           { "math": [ "n_jk_mission_status = 8" ] },
           {
@@ -132,7 +131,6 @@
         "switch": true,
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
-          "clear_mission",
           { "u_add_var": "jk_clear_mission2", "value": "done" },
           { "math": [ "n_jk_mission_status = 8" ] },
           {
