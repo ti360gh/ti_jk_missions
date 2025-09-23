@@ -49,7 +49,7 @@ Artwork: [@sapphirenohito](https://x.com/sapphirenohito)
 - v0.1 (first release)
   - CDDA 0.F向け
 
-- v0.202509
+- v0.202509_2301
   - 現在の開発版に合わせて再作成
     - カスタムダイアログ/snippet実装
     - カスタムミッションダイアログ実装
