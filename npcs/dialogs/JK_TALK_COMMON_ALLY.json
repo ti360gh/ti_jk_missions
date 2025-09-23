@@ -86,6 +86,24 @@
     },
     "responses": [
       {
+        "text": "<color_yellow>[ミッション]</color>(ここだ……)",
+        "topic": "JK_TALK_MISSION4_COMPLETE",
+        "condition": {
+          "and": [
+            { "u_has_mission": "JK_MISSION_FIND_LABO_4" },
+            { "u_at_om_location": "central_lab_entrance" },
+            { "npc_at_om_location": "central_lab_entrance" }
+          ]
+        },
+        "switch": true
+      },
+      {
+        "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
+        "topic": "JK_TALK_MISSION4_INQUIRE",
+        "condition": { "u_has_mission": "JK_MISSION_FIND_LABO_4" },
+        "switch": true
+      },
+      {
         "//": "M3クリアの場合",
         "text": "<color_yellow>[ミッション]</color>(アリーヤ博士の行方について)",
         "topic": "JK_TALK_MISSION4",
@@ -95,7 +113,11 @@
           { "finish_mission": "JK_MISSION_FIND_LABO_3", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission3", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01の信用を得るには</color>」を完了しました",
+            "popup": true
+          }
         ]
       },
       {
@@ -108,7 +130,11 @@
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission2", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を完了しました",
+            "popup": true
+          }
         ]
       },
       {

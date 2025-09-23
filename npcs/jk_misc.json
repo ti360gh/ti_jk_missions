@@ -45,11 +45,11 @@
     "requirements": [  ]
   },
   {
-    "id": "achievement_jk_mission1",
+    "id": "achievement_jk_mission",
     "type": "achievement",
     "name": "アリーヤ博士の残したもの",
     "manually_given": true,
-    "description": "大破局ではあらゆるものが変わってしまう。変わっていないものを留めることだけが、人にできる唯一の抵抗なのかもしれない",
+    "description": "大破局ではあらゆるものが変わってしまう。変わっていないものを留めることだけが人にできる唯一の抵抗なのかもしれない",
     "requirements": [  ]
   },
   {

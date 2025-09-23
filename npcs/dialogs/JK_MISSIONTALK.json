@@ -10,7 +10,11 @@
         "topic": "TALK_DONE",
         "effect": [
           { "math": [ "n_jk_mission_status = 0" ] },
-          { "u_message": "ミッションを無効化しました", "type": "bad", "popup": true }
+          {
+            "u_message": "このMODのミッションを完全に無効化しました",
+            "type": "bad",
+            "popup": true
+          }
         ]
       }
     ]
@@ -32,7 +36,14 @@
       {
         "text": "(カードのかわりに地図を渡して待つ)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_1" }, { "math": [ "n_jk_mission_status++" ] } ]
+        "effect": [
+          { "add_mission": "JK_MISSION_FIND_LABO_1" },
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>科学研究所を目指そう</color>」を開始しました",
+            "popup": true
+          }
+        ]
       }
     ]
   },
@@ -73,7 +84,11 @@
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission1", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>科学研究所を目指そう</color>」を完了しました",
+            "popup": true
+          }
         ],
         "switch": true
       },
@@ -84,7 +99,11 @@
         "effect": [
           { "finish_mission": "JK_MISSION_FIND_LABO_1", "success": true },
           "clear_mission",
-          { "u_add_var": "jk_clear_mission1", "value": "done" }
+          { "u_add_var": "jk_clear_mission1", "value": "done" },
+          {
+            "u_message": "ミッション: 「<color_light_blue>科学研究所を目指そう</color>」を完了しました",
+            "popup": true
+          }
         ],
         "switch": true
       }
@@ -105,6 +124,52 @@
         "text": "(先に進もう)",
         "topic": "TALK_DONE",
         "switch": true,
+        "condition": { "or": [ { "u_has_trait": "PSYCHOPATH" }, { "u_has_trait": "NUMB" } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission1", "value": "talked" }
+        ]
+      },
+      {
+        "text": "(先に進もう)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          {
+            "u_add_morale": "jk_morale_talk",
+            "bonus": 20,
+            "max_bonus": 35,
+            "duration": "120 minutes",
+            "decay_start": "60 minutes"
+          },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission1", "value": "talked" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION2_AFTER",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、こんなときなのにHUB01の建物には傷ひとつありませんでしたね。この辺りでは暴動も起こらなかったんでしょうか。それとも、暴動が起こるのが分かっていて、人を遠ざけていたのかな。いくらなんでも、たまたま誰もいなかったなんてことはないと思うんです。もしこんな大惨事が起こることが分かっていたとしたら、こんなことがどうして起こったのかも知っているかもしれませんよね。ママもここで仕事をしていました。何か知っているのかな。無事でいるのかな。センパイの家族も、無事でいて欲しいです",
+    "responses": [
+      {
+        "text": "(そうだね)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "u_has_trait": "PSYCHOPATH" }, { "u_has_trait": "NUMB" } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission2", "value": "talked" }
+        ]
+      },
+      {
+        "text": "(そうだね)",
+        "topic": "TALK_DONE",
+        "switch": true,
         "condition": { "or": [ { "not": { "u_has_trait": "PSYCHOPATH" } }, { "not": { "u_has_trait": "NUMB" } } ] },
         "effect": [
           { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
@@ -115,19 +180,86 @@
             "duration": "120 minutes",
             "decay_start": "60 minutes"
           },
-          { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
-          { "u_add_var": "jk_clear_mission1", "value": "talked" }
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission2", "value": "talked" }
         ]
-      },
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION3_AFTER",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、HUB01の人たちのことどう思いますか？  私はあんまり好きじゃないです。凄い技術を持っていて、あんなにきれいな建物の中で。私たちはいままで協力してきましたけど、それでもどこか私たちみたいな人がどうなっても関係ないみたいにしてて……。ママはどうしてあんな人たちと一緒に仕事をしていたのかな。あんな人たちの仲間だなんて信じられない。センパイ、センパイはあそこに入って暮らせるとしたら、そうしたいと思いますか？",
+    "responses": [
       {
-        "text": "(先に進もう)",
+        "text": "(会話を終える)",
         "topic": "TALK_DONE",
         "switch": true,
         "condition": { "or": [ { "u_has_trait": "PSYCHOPATH" }, { "u_has_trait": "NUMB" } ] },
         "effect": [
           { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
-          { "npc_add_effect": "asked_to_socialize", "duration": 7000 },
-          { "u_add_var": "jk_clear_mission1", "value": "talked" }
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission3", "value": "talked" }
+        ]
+      },
+      {
+        "text": "(会話を終える)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "not": { "u_has_trait": "PSYCHOPATH" } }, { "not": { "u_has_trait": "NUMB" } } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          {
+            "u_add_morale": "jk_morale_talk",
+            "bonus": 20,
+            "max_bonus": 35,
+            "duration": "120 minutes",
+            "decay_start": "60 minutes"
+          },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission3", "value": "talked" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_AFTER",
+    "type": "talk_topic",
+    "dynamic_line": "センパイ、いろいろありがとうございました。ママは見つからなかったけれど、あの日よりも昔のことはもう終わったことだって思えるようになりました。だから今の私にとっては、あの日センパイに会えたときが始まりってことになりますね",
+    "responses": [ { "text": "(なんの始まりなのか聞く)", "topic": "JK_TALK_MISSION4_AFTER_2" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_AFTER",
+    "type": "talk_topic",
+    "dynamic_line": "その話はまた今度、です。ヘヘ",
+    "responses": [
+      {
+        "text": "(会話を終える)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "u_has_trait": "PSYCHOPATH" }, { "u_has_trait": "NUMB" } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission4", "value": "talked" }
+        ]
+      },
+      {
+        "text": "(会話を終える)",
+        "topic": "TALK_DONE",
+        "switch": true,
+        "condition": { "or": [ { "not": { "u_has_trait": "PSYCHOPATH" } }, { "not": { "u_has_trait": "NUMB" } } ] },
+        "effect": [
+          { "u_assign_activity": "JK_ACT_SOCIALIZE", "duration": "10 minutes" },
+          {
+            "u_add_morale": "jk_morale_talk",
+            "bonus": 20,
+            "max_bonus": 35,
+            "duration": "120 minutes",
+            "decay_start": "60 minutes"
+          },
+          { "npc_add_effect": "asked_to_socialize", "duration": "5 h" },
+          { "u_add_var": "jk_clear_mission4", "value": "talked" }
         ]
       }
     ]
@@ -146,7 +278,14 @@
       {
         "text": "(地図を渡して待つ)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_2" }, { "math": [ "n_jk_mission_status = 4" ] } ]
+        "effect": [
+          { "add_mission": "JK_MISSION_FIND_LABO_2" },
+          { "math": [ "n_jk_mission_status = 4" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を開始しました",
+            "popup": true
+          }
+        ]
       }
     ]
   },
@@ -159,7 +298,14 @@
       {
         "text": "(わかった)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_2" }, { "math": [ "n_jk_mission_status = 4" ] } ]
+        "effect": [
+          { "add_mission": "JK_MISSION_FIND_LABO_2" },
+          { "math": [ "n_jk_mission_status = 4" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を開始しました",
+            "popup": true
+          }
+        ]
       }
     ]
   },
@@ -345,7 +491,7 @@
   {
     "id": "JK_TALK_MISSION4",
     "type": "talk_topic",
-    "dynamic_line": "&  後輩にHUB01から聞いたアリーヤ博士の行方について伝えました。\n「消える……なんてこと、ないですよね。事故でもあったんでしょうか。ううん、センパイに聞いたって分かるわけありませんよね。ごめんなさい、ちょっと、びっくりして……。覚悟してたつもりだったのに、HUB01がきれいに残っていたから、もしかして、とも思っちゃってました。ママ達、どうしてHUB01から出て行ったんだろう。ううん、きっと大事な用事だったんですよね」\n  後輩は上を向いて目を閉じたあと、もういないんだってことは分かりました。と笑いました",
+    "dynamic_line": "&  後輩にHUB01から聞いたアリーヤ博士の行方について伝えました。\n「消えるなんて……いくらこんなときでもそんなのないですよね。事故でもあったんでしょうか。ううん、センパイに聞いたって分かるわけありませんよね。ごめんなさい、ちょっとびっくりして……。覚悟してたつもりだったのに、HUB01がきれいに残っていたから、もしかして、とも思っちゃってました。ママ達、どうしてHUB01から出て行ったんだろう。きっと大事な用事だったんですよね……」\n  後輩は上を向いて目を閉じたあと、もういないんだってことは分かりました。と笑いました",
     "responses": [ { "text": "(声を掛ける)", "topic": "JK_TALK_MISSION4_1" } ]
   },
   {
@@ -362,7 +508,42 @@
       {
         "text": "(地図に印をつける)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_4" }, { "math": [ "n_jk_mission_status++" ] } ]
+        "effect": [
+          { "add_mission": "JK_MISSION_FIND_LABO_4" },
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>アリーヤ博士の行方を追う</color>」を開始しました",
+            "popup": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_COMPLETE",
+    "type": "talk_topic",
+    "dynamic_line": "&  アリーヤ博士が姿を消したという地点にたどり着きました。後輩は真剣な目で木々の間を眺め、視線をあげると空を隠すような枝の向こうを見通します。\n\n「センパイ、ありがとうございました。何かがあると思っていたわけじゃなかったけれど、何かあったらどうしようって思ってたんです。でも、ここでヘリが墜落していたりしたら、ママに似たゾンビが居たりしたら、なんとかしなきゃって思って。あれ、じゃあ、何かあった方がいいと思ってたってことになるのかな？",
+    "responses": [ { "text": "(声を掛ける)", "topic": "JK_TALK_MISSION4_COMPLETE_2" } ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_COMPLETE_2",
+    "type": "talk_topic",
+    "dynamic_line": "&  センパイ、ほんとうにありがとうございました。私はもう、あの日に終わったことで悩むのはやめにします。私たちはまだ生きてここに居るんだから、終わっていないことを考えないといけませんよね！  これからもよろしくお願いします",
+    "responses": [
+      {
+        "text": "(会話終了)",
+        "topic": "TALK_DONE",
+        "effect": [
+          { "finish_mission": "JK_MISSION_FIND_LABO_4", "success": true },
+          "clear_mission",
+          { "u_add_var": "jk_clear_mission4", "value": "done" },
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>アリーヤ博士の行方を追う</color>」を完了しました",
+            "popup": true
+          },
+          { "give_achievement": "achievement_jk_mission" }
+        ]
       }
     ]
   },
@@ -378,7 +559,11 @@
           { "finish_mission": "JK_MISSION_FIND_LABO_2", "success": true },
           "clear_mission",
           { "u_add_var": "jk_clear_mission2", "value": "done" },
-          { "math": [ "n_jk_mission_status++" ] }
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01に行こう</color>」を完了しました",
+            "popup": true
+          }
         ]
       }
     ]
@@ -391,7 +576,14 @@
       {
         "text": "(彼らに協力しよう)",
         "topic": "TALK_DONE",
-        "effect": [ { "add_mission": "JK_MISSION_FIND_LABO_3" }, { "math": [ "n_jk_mission_status++" ] } ]
+        "effect": [
+          { "add_mission": "JK_MISSION_FIND_LABO_3" },
+          { "math": [ "n_jk_mission_status++" ] },
+          {
+            "u_message": "ミッション: 「<color_light_blue>HUB01の信用を得るには</color>」を開始しました",
+            "popup": true
+          }
+        ]
       }
     ]
   },
@@ -420,7 +612,7 @@
       "センパイ、研究員の人を早く見つけてあげなきゃですね",
       "戦闘ロボットって、ターミネーターみたいなやつかな？",
       "ゾンビが居るんだからターミネーターが居たっておかしくないですよねないですよね、センパイ？",
-      "センパイ、ターミネーターみたいな戦闘ロボットなら、ジョン・コナーみたいに爆弾を用意した方がいいかもしれません",
+      "センパイ、ターミネーターみたいな戦闘ロボットなら、ジョン・コナーみたいに爆弾を用意した方がいいのかな？",
       "センパイ、敵対行動をするってことは、ロボットは攻撃してくるってことですよね。ロボット三原則はどうしちゃったんでしょう？",
       "重装甲で機敏な戦闘プログラム……こんなターミネーターみたいなロボットで、ゾンビと戦うつもりだったんでしょうか"
     ],
@@ -434,7 +626,7 @@
     "id": "JK_TALK_MISSION3_INQUIRE_ROBOFAC2",
     "type": "talk_topic",
     "dynamic_line": [
-      "AI研究チームの責任者！  ううん、もうDARPAの職員じゃないから、ママじゃない……",
+      "AI研究チームの責任者！  ううん、もうDARPAじゃないから、ママじゃない……",
       "救助部隊って、軍隊ですよね。センパイ、軍隊が全滅するなんて何があったんでしょう",
       "センパイ、戦闘用の軽装外骨格って、パワーアーマーのことでしょうか。暴徒鎮圧に出動したってニュースで見たんですけど、ピストルで撃たれたのに着ていた兵士にはアザひとつできなかったんですって！",
       "軍隊が居たなら銃とか銃弾が手に入るかもしれませんよね。でも、危険だし、どうしましょう、センパイ",
@@ -459,7 +651,7 @@
       "どうせUPSくれるなら充電しておいてくれたらいいのにって思いません？  センパイ",
       "トリファセットって、ロボットなんですよね。こんなの見たことないです。センパイはどうです？",
       "このロボットって武装しているんですよね。歩いて近づくのは危険かもしれませんよ、センパイ",
-      "hm12で撃って、止まったら電源を切る。電源って……？",
+      "hm12で撃って、止まったらスイッチを切る。スイッチがあるの……？",
       "センパイ、撃つのとスイッチを切るので役割分担するって言うのはどうです？"
     ],
     "responses": [
@@ -473,15 +665,31 @@
     "type": "talk_topic",
     "dynamic_line": [
       "センパイ、これはなんだかとても危険そうです……",
-      "街に行くなら沢山準備していかないとですね、センパイ",
-      "センパイは、フォトニック回路って見たことありますか？  向こうで見つけてこれってわかるのかな？",
+      "センパイ、街に行くのに弾足ります？",
+      "センパイは、このフォトニック回路って見たことありますか？  見つけたとしてすぐにこれってわかるのかな？",
       "センパイ、HUBの装備の調子はどうですか？",
       "毒ガスってイヤな感じですね。予備のフィルターも用意しませんか？",
-      "ドローンの妨害ってどういうことでしょう？  空を飛べるなら、ゾンビに手出しはできませんよね？",
-      "ポータル嵐、何……？  センパイ、知ってますか？",
+      "ドローンが妨害されたどういうことでしょう？  空を飛べるなら、ゾンビに手出しはできませんよね？",
+      "ポータル嵐って何……？  センパイ、知ってますか？",
       "センパイ、準備は大丈夫ですか？  沢山のゾンビ、地下室、毒ガスだそうです",
       "あっ、そうですね。一度偵察に行くのもいいかもしれませんね。弾、足りるかな",
-      "熱源、ゾンビ、地震、毒ガス……センパイ、危険過ぎたららいつでも止めましょうね"
+      "熱源、ゾンビ、地震、毒ガス……センパイ、危険過ぎたらいつでも止めましょうね"
+    ],
+    "responses": [
+      { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC4" },
+      { "text": "(会話終了)", "topic": "TALK_DONE" }
+    ]
+  },
+  {
+    "id": "JK_TALK_MISSION4_INQUIRE",
+    "type": "talk_topic",
+    "dynamic_line": [
+      "ありがとうございます、センパイ。何があるか分かりませんから、ちゃんと準備していきましょう",
+      "もし何もなくても大丈夫です。きっと",
+      "何かあったときの方が怖いかも。でも、大丈夫です。センパイがいますからね",
+      "……あっ、ごめんなさい、センパイ。行ってみて、もし何かあったらって考えちゃって",
+      "センパイの地図の場所、街も建物もなさそうですよね。何があったんでしょう……",
+      "みんな居なくなったのは、あのポータル嵐ってやつだったのかな。\nあっそうですね、センパイ。だったらあの人達は分かるはずですよね"
     ],
     "responses": [
       { "text": "(もっと話す)", "topic": "JK_TALK_MISSION3_INQUIRE_ROBOFAC4" },
