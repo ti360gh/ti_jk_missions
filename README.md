@@ -7,9 +7,8 @@
   ![イメージ](docs/imgs/image.png)
 
 # インストール
-1. ファイルの入手
-   - 開発版対応バージョン
-   - 0.I対応バージョン
+1. ファイルの入手<br/>
+  [ここからダウンロードしてください](https://github.com/ti360gh/ti_jk_missions/release)
 1. `<CDDAインストールディレクトリ>/data/mods/` にzipファイルを展開します
 1. `<CDDAインストールディレクトリ>/data/mods/ti_jk_companion` に `modinfo.json` があればOK
 
