@@ -36,7 +36,7 @@
         "has_reason": { "use_reason": true },
         "no": {
           "//": "ゲーム開始はthe dayから5日後。>=6はゲーム開始翌日を想定。noは一日目のメッセージ",
-          "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ],
+          "math": [ "time_since('cataclysm', 'unit': 'days') >= 6" ],
           "no": "や～大変でしたね、センパイ",
           "yes": {
             "//": "ミッション2開始前",
@@ -176,7 +176,7 @@
         "topic": "JK_TALK_MISSION1",
         "condition": {
           "//": "第一ミッション開始前",
-          "and": [ { "math": [ "n_jk_mission_status == 1" ] }, { "math": [ "time_since('cataclysm', 'unit': 'days') >= 5" ] } ]
+          "and": [ { "math": [ "n_jk_mission_status == 1" ] }, { "math": [ "time_since('cataclysm', 'unit': 'days') >= 6" ] } ]
         },
         "switch": true
       },
