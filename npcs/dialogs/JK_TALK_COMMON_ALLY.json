@@ -467,6 +467,7 @@
         "topic": "TALK_DONE",
         "effect": "drop_items_in_place"
       },
+      { "text": "(取得ルールについて)", "topic": "TALK_FRIEND", "effect": "set_npc_pickup" },
       { "text": "(今の作業について)", "topic": "JK_TALK_ACTIVITIES" },
       { "text": "(拠点について)", "topic": "JK_TALK_CAMP" },
       { "text": "(戦闘スタイルを変える)", "topic": "TALK_DONE", "effect": "pick_style" },
