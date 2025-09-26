@@ -14,6 +14,8 @@
 1. `<CDDAインストールディレクトリ>/data/mods/` にzipファイルを展開します
 1. `<CDDAインストールディレクトリ>/data/mods/ti_jk_companion` に `modinfo.json` があればOK
 
+※このMODの開発版(CDDA開発版対応)は[ここから](https://github.com/ti360gh/ti_jk_missions/archive/refs/heads/main.zip) 入手できます
+
 # バージョンの違い
 - 開発版対応/0.I対応バージョン<br/>
 0.Iにはまだミッションに関わる一部のダイアログカスタマイズ機能が存在しないため、ミッションの説明がちょっと違っています。<br/>
