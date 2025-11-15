@@ -11,8 +11,8 @@
 # インストール
 1. ファイルの入手<br/>
   [ここからダウンロードしてください](https://github.com/ti360gh/ti_jk_missions/releases)
-1. `<CDDAインストールディレクトリ>/data/mods/` にzipファイルを展開します
-1. `<CDDAインストールディレクトリ>/data/mods/ti_jk_companion` に `modinfo.json` があればOK
+1. `<CDDAインストールディレクトリ>/mods/` にzipファイルを展開します
+1. `<CDDAインストールディレクトリ>/mods/ti_jk_companion` に `modinfo.json` があればOK
 
 ※このMODの開発版(CDDA開発版対応)は[ここから](https://github.com/ti360gh/ti_jk_missions/archive/refs/heads/main.zip) 入手できます
 
